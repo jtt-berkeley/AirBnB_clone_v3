@@ -5,7 +5,7 @@ header {
     border-bottom: 1px solid #CCCCCC;
 }
 
-div.logo {
+.logo {
     content:url(../images/logo.png);
     left: 20px;
 }
