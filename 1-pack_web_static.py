@@ -16,6 +16,6 @@ def do_pack():
     try:
         tar = tarfile.open("./version/web_static_"+timestr+".tgz", "w:gz")
         tar.add("./web_static/")
-        return ("./version/web_static_"+timestr+".tgz")
+        return (os.getcwd()+"/version/web_static_"+timestr+".tgz")
     except:
         return None
