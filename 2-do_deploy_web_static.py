@@ -17,16 +17,13 @@ def do_deploy(archive_path):
             with (settings(host_string=ip_add)):
                 new_arch = archive_path.split("/")
                 new_folder = ("/data/web_static/releases/" + new_arch[-1][:-4])
-                cmd = "mkdir " + new_folder
-                sudo(cmd)
-                cmd = "tar -xzf /tmp/" + new_arch[-1] + " -C " + new_folder
-                sudo(cmd)
-                cmd = "mv " + new_folder + "/web_static/* " + new_folder
-                sudo(cmd)
-                cmd = "rm -rf " + new_folder + "/web_static"
-                sudo('rm -rf /data/web_static/current')
-                cmd = "ln -s " + new_folder + " /data/web_static?current"
-                sudo(cmd)
+                run("mkdir {}".format(new_folder))
+                run("tar -xzf /tmp/{} -C {}".format(new_arch[-1], new_folder))
+                run("rm /tmp/{}".format(new_arch[-1]))
+                run("mv {}/web_static/* {}".format(new_folder, new_folder))
+                run("rm -rf {}/web_static".format(new_folder))
+                run('rm -rf /data/web_static/current')
+                run("ln -s {} /data/web_static/current".format(new_folder))
         return True
     except:
         return False
