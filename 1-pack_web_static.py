@@ -5,7 +5,6 @@ file to practice use of Fabric
 import tarfile
 import time
 import os
-from subprocess import call
 
 
 def do_pack():
