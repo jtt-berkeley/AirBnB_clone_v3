@@ -16,10 +16,10 @@ def do_deploy(archive_path):
             put(archive_path, "/tmp/")
             with (settings(host_string=ip_add)):
                 new_arch = archive_path.split("/")
-                new_folder = ("/data/web_static/releases/"+ new_arch[-1][:-4])
+                new_folder = ("/data/web_static/releases/" + new_arch[-1][:-4])
                 cmd = "mkdir " + new_folder
                 sudo(cmd)
-                cmd = "tar -xzf /tmp/"+ new_arch[-1] + " -C " + new_folder
+                cmd = "tar -xzf /tmp/" + new_arch[-1] + " -C " + new_folder
                 sudo(cmd)
                 cmd = "mv " + new_folder + "/web_static/* " + new_folder
                 sudo(cmd)
@@ -27,6 +27,6 @@ def do_deploy(archive_path):
                 sudo('rm -rf /data/web_static/current')
                 cmd = "ln -s " + new_folder + " /data/web_static?current"
                 sudo(cmd)
-        return True:
+        return True
     except:
         return False
