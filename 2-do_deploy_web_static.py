@@ -10,7 +10,6 @@ env.hosts = ['52.90.98.156', '52.207.85.204']
 
 def do_deploy(archive_path):
     try:
-        print(archive_path)
         new_arch = archive_path.split("/")
         new_comp = new_arch[-1]
         new_folder = ("/data/web_static/release/" + new_arch[-1][:-4])
