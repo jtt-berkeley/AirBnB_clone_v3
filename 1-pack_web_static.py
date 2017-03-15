@@ -13,5 +13,9 @@ def do_pack():
         os.stat("./version/")
     except:
         os.mkdir("./version/")
-    tar = tarfile.open("./version/web_static_"+timestr+".tgz", "w:gz")
-    tar.add("./web_static/")
+    try:
+        tar = tarfile.open("./version/web_static_"+timestr+".tgz", "w:gz")
+        tar.add("./web_static/")
+        return ("./version/web_static_"+timestr+".tgz")
+    except:
+        return None
