@@ -6,7 +6,8 @@ sudo mkdir /data/web_static/
 sudo mkdir /data/web_static/releases/
 sudo mkdir /data/web_static/shared/
 sudo mkdir /data/web_static/releases/test/
-echo "<html>
+echo "<!DOCTYPE html>
+<html>
   <head>
   </head>
   <body>
