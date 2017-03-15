@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # script to set up clean server
+sudo apt-get update
 sudo apt-get install -y nginx
 sudo mkdir /data/
 sudo mkdir /data/web_static/
