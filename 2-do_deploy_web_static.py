@@ -6,12 +6,19 @@ import os
 from fabric.api import env
 from fabric.operations import run, put, sudo
 env.hosts = ['52.90.98.156', '52.207.85.204']
+env.user = 'ubuntu'
 
 
 def do_deploy(archive_path):
-    if (os.path.exists(archive_path) is False):
+    if (os.path.isfile(archive_path) is False):
         return False
     try:
+        print(archive_path)
+        new_arch = archive_path.split("/")
+        new_comp = new_arch[-1]
+        new_folder = ("/data/web_static/release/" + new_arch[-1][:-4])
+        print(new_comp)
+        print(new_folder)
         for ip_add in env.hosts:
             put(archive_path, "/tmp/")
             with (settings(host_string=ip_add)):
