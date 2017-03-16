@@ -26,10 +26,10 @@ def do_deploy(archive_path):
     try:
         new_arch = archive_path.split("/")
         new_comp = new_arch[-1]
-        new_folder = ("/data/web_static/release/" + new_arch[-1][:-4])
+        new_folder = ("/data/web_static/releases/" + new_arch[-1][:-4])
         put(archive_path, "/tmp/{}".format(new_comp))
-        run("sudo mkdir -p {}/".format(new_folder))
-        run("sudo tar -xzf /tmp/{} -C {}".format(new_arch[-1], new_folder))
+        run("sudo mkdir -p /data/web_static/releases/")
+        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/".format(new_arch[-1]))
         run("sudo rm /tmp/{}".format(new_comp))
         run("sudo mv {}/web_static/* {}".format(new_folder, new_folder))
         run("sudo rm -rf {}/web_static".format(new_folder))
