@@ -32,10 +32,10 @@ def do_deploy(archive_path):
         run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/".
             format(new_comp))
         run("sudo rm /tmp/{}".format(new_comp))
-        run("sudo mv {}/web_static/* {}".format(new_folder, new_folder))
+        run("sudo mv {}/web_static/* {}/".format(new_folder, new_folder))
         run("sudo rm -rf {}/web_static".format(new_folder))
         run('sudo rm -rf /data/web_static/current')
-        run("sudo ln -s {} /data/web_static/current".format(new_folder))
+        run("sudo ln -s {}/ /data/web_static/current".format(new_folder))
         return True
     except:
         return False
