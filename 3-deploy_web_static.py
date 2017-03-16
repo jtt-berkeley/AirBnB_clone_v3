@@ -6,7 +6,8 @@ import os.path
 from fabric.api import *
 from fabric.operations import run, put, sudo
 import time
-env.hosts=['52.90.98.156', '52.207.85.204']
+env.hosts = ['52.90.98.156', '52.207.85.204']
+
 
 def do_pack():
     timestr = time.strftime("%Y%m%d%H%M%S")
@@ -39,6 +40,7 @@ def do_deploy(archive_path):
         return True
     except:
         return False
+
 
 def deploy():
     try:
