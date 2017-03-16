@@ -1,4 +1,4 @@
-\#!/usr/bin/python3
+#!/usr/bin/python3
 """
 script that distributes archive to webservers
 """
