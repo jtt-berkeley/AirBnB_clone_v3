@@ -2,9 +2,8 @@
 """
 file to practice use of Fabric
 """
-import tarfile
+from fabric.api import *
 import time
-import os
 
 
 def do_pack():
