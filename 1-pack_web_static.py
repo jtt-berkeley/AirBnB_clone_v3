@@ -10,12 +10,9 @@ import os
 def do_pack():
     timestr = time.strftime("%Y%m%d%H%M%S")
     try:
-        os.stat("./versions")
-    except:
-        os.mkdir("./versions")
-    try:
-        tar = tarfile.open("./versions/web_static_"+timestr+".tgz", "w:gz")
-        tar.add("./web_static")
-        return (os.getcwd()+"/versions/web_static_"+timestr+".tgz")
+        local("mkdir -p versions")
+        local("tar -cvzf versions/web_static_{}.tgz web_static/".
+              format(timestr))
+        return ("versions/web_static_{}.tgz".format(timestr))
     except:
         return None
