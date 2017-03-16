@@ -52,11 +52,14 @@ def deploy():
 
 
 def do_clean(number=0):
-    if number == 0 or number == 1:
-        local("ls -v ./versions/ | head -n +1 | xargs rm -rf")
-        run("sudo ls -v /data/web_static/releases/ | \
-        head -n +1 | xargs rm -rf")
-    if number == 2:
-        local("ls -v ./versions/ | head -n +2 | xargs rm -rf")
-        run("sudo ls -v /data/web_static/releases/ | \
-        head -n +2 | xargs rm -rf")
+    try:
+        if number == 0 or number == 1:
+            local("ls -v ./versions/ | head -n +1 | xargs rm -rf")
+            run("sudo ls -v /data/web_static/releases/ | \
+            head -n +1 | xargs rm -rf")
+        if number == 2:
+            local("ls -v ./versions/ | head -n +2 | xargs rm -rf")
+            run("sudo ls -v /data/web_static/releases/ | \
+            head -n +2 | xargs rm -rf")
+    except:
+        return False
