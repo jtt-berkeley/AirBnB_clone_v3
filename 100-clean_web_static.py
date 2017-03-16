@@ -54,7 +54,9 @@ def deploy():
 def do_clean(number=0):
     if number == 0 or number == 1:
         local("ls -t ./versions/ | tail -n +2 | xargs rm -rf")
-        run("sudo ls -t /data/web_static/releases/ | tail -n +2 | xargs rm -rf")
+        run("sudo ls -t /data/web_static/releases/ | \
+        tail -n +2 | xargs rm -rf")
     if number == 2:
         local("ls -t ./versions/ | tail -n +3 | xargs rm -rf")
-        run("sudo ls -t /data/web_static/releases/ | tail -n +3 | xargs rm -rf")
+        run("sudo ls -t /data/web_static/releases/ | \
+        tail -n +3 | xargs rm -rf")
