@@ -12,13 +12,9 @@ def do_pack():
     """ package """
     timestr = time.strftime("%Y%m%d%H%M%S")
     try:
-        os.stat("./versions")
-    except:
-        os.mkdir("./versions")
-    try:
-        tar = tarfile.open("./versions/web_static_"+timestr+".tgz", "w:gz")
-        tar.add("./web_static")
-        return (os.getcwd()+"/versions/web_static_"+timestr+".tgz")
+        local("sudo mkdir -p versions/")
+        local("sudo tar -zcvl versions/web_static_{}.tgz web_static".
+              format(timestr))
     except:
         return None
 
