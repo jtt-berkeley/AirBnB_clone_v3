@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+\#!/usr/bin/python3
 """
 script that distributes archive to webservers
 """
@@ -27,7 +27,7 @@ def do_deploy(archive_path):
         new_arch = archive_path.split("/")
         new_comp = new_arch[-1]
         new_folder = ("/data/web_static/releases/" + new_arch[-1][:-4])
-        put(archive_path, "/tmp/{}".format(new_comp))
+        put(archive_path, "/tmp/")
         run("sudo mkdir -p /data/web_static/releases/{}".format(new_comp))
         run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/".
             format(new_comp))
