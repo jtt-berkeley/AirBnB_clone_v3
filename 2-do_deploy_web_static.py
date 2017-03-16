@@ -25,13 +25,13 @@ def do_deploy(archive_path):
         return False
 
     try:
-        new_arch = archive_path.split("/")
-        new_comp = new_arch[-1]
-        new_folder = ("/data/web_static/releases/" + new_comp[:-4])
+        new_comp = archive_path.split("/")[-1]
+        new_name = new_comp.split(".")[0]
+        new_folder = ("/data/web_static/releases/" + new_name)
         put(archive_path, "/tmp/")
-        run("sudo mkdir -p /data/web_static/releases/{}".format(new_comp[:-4]))
+        run("sudo mkdir -p /data/web_static/releases/{}".format(new_name))
         run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}".
-            format(new_comp, new_comp[:-4]))
+            format(new_comp, new_name))
         run("sudo rm /tmp/{}".format(new_comp))
         run("sudo mv {}/web_static/* {}/".format(new_folder, new_folder))
         run("sudo rm -rf {}/web_static".format(new_folder))
