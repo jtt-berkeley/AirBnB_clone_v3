@@ -9,6 +9,7 @@ env.hosts = ['52.90.98.156', '52.207.85.204']
 
 
 def do_pack():
+    """ package """
     timestr = time.strftime("%Y%m%d%H%M%S")
     try:
         os.stat("./versions")
@@ -23,10 +24,11 @@ def do_pack():
 
 
 def do_deploy(archive_path):
+    """ deploy """
     try:
         new_arch = archive_path.split("/")
         new_comp = new_arch[-1]
-        new_folder = ("/data/web_static/releases/" + new_arch[-1][:-4])
+        new_folder = ("/data/web_static/releases/" + new_comp[:-4])
         put(archive_path, "/tmp/")
         run("sudo mkdir -p /data/web_static/releases/{}".format(new_comp[:-4]))
         run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}".
@@ -37,5 +39,5 @@ def do_deploy(archive_path):
         run('sudo rm -rf /data/web_static/current')
         run("sudo ln -s {}/ /data/web_static/current".format(new_folder))
         return True
-    except:
+    except Exception as e:
         return False
