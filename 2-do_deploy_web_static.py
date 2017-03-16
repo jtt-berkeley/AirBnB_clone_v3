@@ -21,6 +21,9 @@ def do_pack():
 
 def do_deploy(archive_path):
     """ deploy """
+    if (os.path.isfile(archive_path) is False):
+        return False
+
     try:
         new_arch = archive_path.split("/")
         new_comp = new_arch[-1]
