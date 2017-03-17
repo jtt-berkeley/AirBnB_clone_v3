@@ -22,18 +22,18 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def do_create(self, args):
+    def do_create(self, *args):
         """Create a new Basemodel"""
-        args = args.split()
-        if len(args) != 1:
-            print("** clas name missing **")
+        if len(args[0]) < 1:
+            print("** class name missing **")
         else:
             if len(args) > 0 and args[0] in HBNBCommand.valid_classes:
                 new_obj = eval(args[0])()
                 print(new_obj.id)
                 new_obj.save()
             else:
-                return
+                print("** class doesn't exist **")
+
 
     def do_show(self, args):
         """Usage: show BaseModel 1234-1234-1234"""
@@ -54,25 +54,22 @@ class HBNBCommand(cmd.Cmd):
                 return
         print("** no instance found **")
 
-    def do_destroy(self, args):
+    def do_destroy(self, *args):
         """Usage: destroy BaseModel 1234-1234-1234"""
-        args = args.split()
         if len(args) == 0:
-            print("** class name missing **")
-            return
-        if len(args) == 1:
-            print("** instance id missing **")
+            print("Usage: create BaseModel")
             return
         if args[0] not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
             return
-        all_objs = storage.all()
-        for objs_id in all_objs.keys():
-            if objs_id == args[1] and args[0] in str(type(all_objs[objs_id])):
-                del all_objs[objs_id]
-                storage.save()
-                return
-        print("** no instance found **")
+        if len(args) >= 2:
+            all_objs = storage.all()
+            for objs_id in all_objs.keys():
+                if objs_id == args[1] and args[0] in str(type(all_objs[objs_id])):
+                    del all_objs[objs_id]
+                    storage.save()
+                    return
+            print("** no instance found **")
 
     def do_all(self, args):
         """Usage: all Basemodel or all"""
