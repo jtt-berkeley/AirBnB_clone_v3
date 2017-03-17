@@ -31,7 +31,9 @@ class Test_FileStorage(unittest.TestCase):
         self.assertEqual(len(self.store.all()), self.test_len)
 
     def test_new(self):
-        self.assertEqual(len(self.store.all()), self.test_len)
+        # note: we cannot assume order of test is order written
+        self.test_len = len(self.store.all())
+        # self.assertEqual(len(self.store.all()), self.test_len)
         self.model.save()
         self.assertEqual(len(self.store.all()), self.test_len + 1)
         a = BaseModel()

@@ -1,14 +1,21 @@
 #!/usr/bin/python3
 import cmd
-from models import *
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
     storage.reload()
 
-    valid_classes = ["BaseModel", "User", "State",
-                     "City", "Amenity", "Place", "Review"]
+    valid_classes = {"BaseModel": BaseModel, "User": User, "Amenity": Amenity,
+                 "City": City, "Place": Place, "Review": Review, "State": State}
 
     def emptyline(self):
         pass
@@ -24,11 +31,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, *args):
         """Create a new Basemodel"""
-        if len(args[0]) < 1:
+        if not args or (args and len(args[0]) < 1):
             print("** class name missing **")
         else:
-            if len(args) > 0 and args[0] in HBNBCommand.valid_classes:
-                new_obj = eval(args[0])()
+            if args[0] in HBNBCommand.valid_classes.keys():
+                new_obj = HBNBCommand.valid_classes[args[0]]()
                 print(new_obj.id)
                 new_obj.save()
             else:
@@ -36,7 +43,15 @@ class HBNBCommand(cmd.Cmd):
 
 
     def do_show(self, args):
-        """Usage: show BaseModel 1234-1234-1234"""
+        """
+        Shows the __dict__ of an instance.
+        Usage: show <ClassName> <id>
+        Arguments are supposed to be in order
+
+        **Arguments**
+            ClassName: name of class
+            id: unique user id of instance
+        """
         args = args.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -54,40 +69,66 @@ class HBNBCommand(cmd.Cmd):
                 return
         print("** no instance found **")
 
-    def do_destroy(self, *args):
-        """Usage: destroy BaseModel 1234-1234-1234"""
-        if len(args) == 0:
-            print("Usage: create BaseModel")
-            return
-        if args[0] not in HBNBCommand.valid_classes:
-            print("** class doesn't exist **")
-            return
-        if len(args) >= 2:
-            all_objs = storage.all()
-            for objs_id in all_objs.keys():
-                if objs_id == args[1] and args[0] in str(type(all_objs[objs_id])):
-                    del all_objs[objs_id]
-                    storage.save()
-                    return
-            print("** no instance found **")
+    def do_destroy(self, args):
+        """
+        Destroys an instance
+        Usage: destroy <ClassName> <id>
+        Order of arguments is not checked
 
-    def do_all(self, args):
-        """Usage: all Basemodel or all"""
-        if args not in HBNBCommand.valid_classes and len(args) != 0:
+        **Arguments**
+            ClassName: name of class
+            id: unique user id of instance
+        """
+        args = args.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        if args[0] not in HBNBCommand.valid_classes.keys():
             print("** class doesn't exist **")
             return
-        elif args in HBNBCommand.valid_classes:
-            all_objs = {k: v for (k, v) in storage.all().items()
-                        if isinstance(v, eval(args))}
-        elif len(args) == 0:
-            all_objs = storage.all()
+        all_objs = storage.all()
+        for k, v in all_objs.items():
+            if k == args[1] and args[0] == all_objs[k].__class__.__name__:
+                del all_objs[k]
+                storage.save()
+                return
+        print("** no instance found **")
+
+    def do_all(self, ClassName=""):
+        """
+        Prints all objects or all objects for a class
+        Usage: all [<ClassName>]
+
+        **Arguments**
+            ClassName: not required, a valid class name
+        """
+        if not ClassName:
+            for instance in storage.all().values():
+                print(instance)
         else:
-            return
-        for objs_id in all_objs.keys():
-            print(all_objs[objs_id])
+            if ClassName not in HBNBCommand.valid_classes.keys():
+                print("** class doesn't exist **")
+                return
+            else:
+                for instance in storage.all().values():
+                    if instance.__class__.__name__ == ClassName:
+                        print(instance)
 
     def do_update(self, args):
-        """Use: update <class name> <id> <attribute name> <attribute value>"""
+        """
+        Updates a valid object by changing or creating authorized attributes.
+        Usage: update <class name> <id> <attribute name> <attribute value>
+        Arguments are supposed to be passed in order
+
+        **Arguments**
+            class name: class name of the object
+            id: unique user id of the object
+            attribute name: name of attribute to change or create
+            attribute value: value of attribute
+        """
         args = args.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -101,13 +142,13 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 3:
             print("** value missing **")
             return
-        if args[0] not in HBNBCommand.valid_classes:
+        if args[0] not in HBNBCommand.valid_classes.keys():
             print("** class doesn't exist **")
             return
         all_objs = storage.all()
-        for obj_id in all_objs.keys():
-            if obj_id == args[1]:
-                setattr(all_objs[obj_id], args[2], args[3])
+        for k, v in all_objs.items():
+            if k == args[1]:
+                setattr(v, args[2], args[3])
                 storage.save()
                 return
         print("** no instance found **")
