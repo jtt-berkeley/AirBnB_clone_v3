@@ -38,6 +38,7 @@ class FileStorage:
                     cr_at = datetime.strptime(cr_at, "%Y-%m-%d %H:%M:%S.%f")
                     up_at = temp[k]["updated_at"]
                     up_at = datetime.strptime(up_at, "%Y-%m-%d %H:%M:%S.%f")
+                    print("BEFORE EVAL", type(temp[k]))
                     FileStorage.__objects[k] = eval(cls)(temp[k])
         except Exception as e:
             pass

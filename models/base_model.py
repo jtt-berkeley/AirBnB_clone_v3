@@ -8,6 +8,9 @@ class BaseModel:
     """The base class for all storage objects in this project"""
     def __init__(self, *args, **kwargs):
         """initialize class object"""
+        print("DEBUG", args, kwargs)
+        # a = args[0]['created_at']
+        # print("TYPE of date", type(a))
         if len(args) > 0:
             for k in args[0]:
                 setattr(self, k, args[0][k])

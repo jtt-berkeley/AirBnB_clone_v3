@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from models import *
+# from models import *
 
 
 class Test_BaseModel(unittest.TestCase):
@@ -49,4 +49,8 @@ class Test_BaseModel(unittest.TestCase):
         self.assertEqual(jsonified["__class__"], "BaseModel")
 
 if __name__ == "__main__":
+    import sys
+    import os
+    sys.path.insert(1, os.path.join(os.path.split(__file__)[0], '../..'))
+    from models import *
     unittest.main()
