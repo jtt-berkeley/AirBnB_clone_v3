@@ -14,8 +14,9 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
     storage.reload()
 
-    valid_classes = {"BaseModel": BaseModel, "User": User, "Amenity": Amenity,
-                 "City": City, "Place": Place, "Review": Review, "State": State}
+    valid_classes = {"BaseModel": BaseModel, "User": User,
+                     "Amenity": Amenity, "City": City, "Place": Place,
+                     "Review": Review, "State": State}
 
     def emptyline(self):
         pass
@@ -29,18 +30,67 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def do_create(self, *args):
-        """Create a new Basemodel"""
+    def do_create(self, args):
+        """Create a new object
+        Usage: create <Class name> <attr1=value1> <attr2=value2>...
+
+        **Arguments**
+            Class name: required
+            key=value pairs
+        """
+        args = args.split()
         if not args or (args and len(args[0]) < 1):
             print("** class name missing **")
         else:
             if args[0] in HBNBCommand.valid_classes.keys():
                 new_obj = HBNBCommand.valid_classes[args[0]]()
+                # get the key value pairs
+                if args[1]:
+                    result = self.__create_help(args[1:])
+                    if result is None:
+                        print("** Object fails **")
+                        return
+                    new_obj.__dict__.update(result)
                 print(new_obj.id)
                 new_obj.save()
             else:
                 print("** class doesn't exist **")
 
+    def __create_help(self, a_list):
+        """
+        Controles the list of key value arguments passed to d_create
+
+        **Arguments**
+            a_list: a list of key=value
+
+        **Return**
+            a dictinary or None.
+        """
+        try:
+            result = dict([x.split("=") for x in a_list])
+        except ValueError:
+            print("Format Error for attribute=value pairs")
+            return None
+        for key in result.keys():
+            if "." in result[key]:
+                try:
+                    result[key] = float(result[key])
+                    continue
+                except (TypeError, ValueError):
+                    pass
+            else:
+                try:
+                    result[key] = int(result[key])
+                    continue
+                except (TypeError, ValueError):
+                    pass
+            if (result[key].count('"') == (result[key].count('\\"') + 2) and
+               " " not in result[key]):
+                result[key] = str(result[key].replace("_", " "))
+            else:
+                print("String Format Error for {}".format(result[key]))
+                return None
+        return result
 
     def do_show(self, args):
         """
