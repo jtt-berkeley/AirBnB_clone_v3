@@ -2,8 +2,8 @@
 from models import *
 
 
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     name = ""
-
+    __tablename__ = 'Amenity'
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
