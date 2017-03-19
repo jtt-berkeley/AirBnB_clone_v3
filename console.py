@@ -39,18 +39,19 @@ class HBNBCommand(cmd.Cmd):
             key=value pairs
         """
         args = args.split()
-        if not args or (args and len(args[0]) < 1):
+        l = len(args)
+        if l < 1:
             print("** class name missing **")
         else:
             if args[0] in HBNBCommand.valid_classes.keys():
-                new_obj = HBNBCommand.valid_classes[args[0]]()
-                # get the key value pairs
-                if args[1]:
+                if l == 1:
+                    new_obj = HBNBCommand.valid_classes[args[0]]()
+                else:
                     result = self.__create_help(args[1:])
                     if result is None:
                         print("** Object fails **")
                         return
-                    new_obj.__dict__.update(result)
+                    new_obj = HBNBCommand.valid_classes[args[0]](**result)
                 print(new_obj.id)
                 new_obj.save()
             else:
