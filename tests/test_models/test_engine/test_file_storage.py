@@ -51,7 +51,17 @@ class Test_FileStorage(unittest.TestCase):
         self.assertEqual(len(self.store.all()), self.test_len + 2)
 
     def test_reload(self):
-        pass
+        self.model.save()
+        a = BaseModel()
+        a.save()
+        self.store.reload()
+        for value in self.store.all().values():
+            self.assertIsInstance(value.created_at, datetime)
 
 if __name__ == "__main__":
+    import sys
+    import os
+    sys.path.insert(1, os.path.join(os.path.split(__file__)[0], '../../..'))
+    from models import *
+    from models.engine.file_storage import FileStorage
     unittest.main()

@@ -1,7 +1,15 @@
 #!/usr/bin/python3
 import json
 from datetime import datetime
-from models import *
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+# from models import storage
+
 
 
 class FileStorage:
@@ -9,6 +17,10 @@ class FileStorage:
     __objects = {}
 
     def __init__(self):
+        self.__models_available = {"BaseModel": BaseModel, "User": User,
+                                 "Amenity": Amenity, "city": City,
+                                 "Place": Place, "Review": Review,
+                                 "State": State}
         self.reload()
 
     def all(self):
@@ -27,17 +39,20 @@ class FileStorage:
             fd.write(json.dumps(store))
 
     def reload(self):
+        """
+        Restart from what is saved on file
+        All errors will be silently skipped
+        """
+        FileStorage.__objects = {}
         try:
             with open(FileStorage.__file_path,
                       mode="r+", encoding="utf-8") as fd:
-                FileStorage.__objects = {}
                 temp = json.load(fd)
-                for k in temp.keys():
-                    cls = temp[k].pop("__class__", None)
-                    cr_at = temp[k]["created_at"]
-                    cr_at = datetime.strptime(cr_at, "%Y-%m-%d %H:%M:%S.%f")
-                    up_at = temp[k]["updated_at"]
-                    up_at = datetime.strptime(up_at, "%Y-%m-%d %H:%M:%S.%f")
-                    FileStorage.__objects[k] = eval(cls)(temp[k])
         except Exception as e:
-            pass
+            return
+        for k in temp.keys():
+            cls = temp[k].pop("__class__", None)
+            if cls not in self.__models_available.keys():
+                continue
+            # call a good init function
+            FileStorage.__objects[k] = self.__models_available[cls](**temp[k])
