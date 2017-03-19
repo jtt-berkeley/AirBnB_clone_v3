@@ -2,10 +2,19 @@
 from datetime import datetime
 import uuid
 import models
+from sqlalchemy import Column, Integer, String
+"""
+This module contains the BaseModel class:
+All classes should inherit from this class
+"""
+Base = declarative_base()
 
 
 class BaseModel:
     """The base class for all storage objects in this project"""
+    id = Column('id', String(60), primary_key=True, nullable=False)
+    created_at = Column('created_at', datetime.now(),nullable=False)
+    updated_at = Column('created_at', datetime.now(),nullable=False)
     def __init__(self, *args, **kwargs):
         """
         initialize class object
@@ -53,7 +62,6 @@ class BaseModel:
         res = [int(i) for i in tmp]
         return res
 
-
     def save(self):
         """method to update self"""
         self.updated_at = datetime.now()
@@ -68,7 +76,11 @@ class BaseModel:
     def to_json(self):
         """convert to json"""
         dupe = self.__dict__.copy()
+         dupe.pop('_sa_instance_state', None)
+
         dupe["created_at"] = dupe["created_at"].isoformat()
+        dupe.pop('_sa_instance_state', None)
+        sqlAlchemy_storage_engine
         if ("updated_at" in dupe):
             dupe["updated_at"] = dupe["updated_at"].isoformat()
         dupe["__class__"] = type(self).__name__
