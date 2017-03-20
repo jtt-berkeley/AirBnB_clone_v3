@@ -2,7 +2,8 @@
 from datetime import datetime
 import uuid
 import models
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Table
+from sqlalchemy.ext.declarative import declarative_base
 """
 This module contains the BaseModel class:
 All classes should inherit from this class
@@ -12,9 +13,10 @@ Base = declarative_base()
 
 class BaseModel:
     """The base class for all storage objects in this project"""
-    id = Column('id', String(60), primary_key=True, nullable=False)
-    created_at = Column('created_at', datetime.now(),nullable=False)
-    updated_at = Column('created_at', datetime.now(),nullable=False)
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(datetime.now(),nullable=False)
+    updated_at = Column(datetime.now(),nullable=False)
+
     def __init__(self, *args, **kwargs):
         """
         initialize class object
@@ -76,7 +78,7 @@ class BaseModel:
     def to_json(self):
         """convert to json"""
         dupe = self.__dict__.copy()
-         dupe.pop('_sa_instance_state', None)
+        dupe.pop('_sa_instance_state', None)
 
         dupe["created_at"] = dupe["created_at"].isoformat()
         dupe.pop('_sa_instance_state', None)

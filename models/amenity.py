@@ -1,9 +1,16 @@
 #!/usr/bin/python3
-from models import *
-
+from models.base_model import BaseModel, Base, Table, Column
+"""
+"""
 
 class Amenity(BaseModel, Base):
-    name = ""
+    """
+    The Amenity class
+    """
     __tablename__ = 'Amenity'
+    name = Column(String(128), nullable=False)
     def __init__(self, *args, **kwargs):
+        """
+        initializes class objects. Inherts attributes from parent
+        """
         super().__init__(*args, **kwargs)
