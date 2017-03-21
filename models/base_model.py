@@ -13,8 +13,10 @@ All classes should inherit from this class
 
 if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
     Base = declarative_base()
+    print("declarative base")
 else:
     Base = object
+    print("object base")
 
 class BaseModel:
     """The base class for all storage objects in this project"""
