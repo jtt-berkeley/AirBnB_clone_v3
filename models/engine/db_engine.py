@@ -14,4 +14,15 @@ class DBstorage:
             getenvb(' HBNB_MYSQL_DB')))
 
     def all(self, cls=None):
+        orm_objects = {}
+        if cls:
+            cls_obj = self.__session.query(cls).all()
+            
+        else:
+            for i in ['User', 'State', 'Amenity', 'Place', 'Review']:
+                self.__session.query(i).all()
         self.__session.
+    def new(self, obj):
+    def save(self):
+    def delete(self, obj=None):
+    def reload(self):
