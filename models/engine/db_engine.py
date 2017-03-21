@@ -26,7 +26,7 @@ class DBstorage:
     def save(self):
         self.__session.commit()
     def delete(self, obj=None):
-        if !obj:
+        if obj is not None:
             self.__session.delete(obj)
     def reload(self):
         Base.metadata.create_all(self.__engine)
