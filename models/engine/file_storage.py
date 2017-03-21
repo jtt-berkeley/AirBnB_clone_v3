@@ -56,3 +56,6 @@ class FileStorage:
                 continue
             # call a good init function
             FileStorage.__objects[k] = self.__models_available[cls](**temp[k])
+
+    def delete(self, obj=none):
+        __objects.pop(obj, none)
