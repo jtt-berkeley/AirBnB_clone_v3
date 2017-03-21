@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel, Base, Table, Column
+from models.base_model import BaseModel, Base, Table, Column, String
 from os import getenv
 """
 amenity module
@@ -12,7 +12,7 @@ class Amenity(BaseModel, Base):
     The Amenity class
     """
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
-        __tablename__ = 'Amenity'
+        __tablename__ = 'amenities'
         name = Column(String(128), nullable=False)
     else:
         name = ""
