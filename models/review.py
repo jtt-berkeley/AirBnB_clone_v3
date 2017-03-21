@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from models.base_model import BaseMode, Base, Table, Column
+from models.base_model import BaseModel, Base, Table, Column
 from sqlalchemy import ForeignKey
-from os import getenvb
+from os import getenv
 """
 review module
     contains
@@ -13,7 +13,7 @@ class Review(BaseModel, Base):
     """
     The review class
     """
-    if getenvb('HBNB_TYPE_STORAGE') == 'db':
+    if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "reviews"
         place_id = Column(String(60), ForeignKey(places.id), nullable=False)
         user_id = Column(String(60), ForeignKey(users.id), nullable=False)

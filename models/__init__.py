@@ -7,12 +7,14 @@ from models.place import Place
 from models.state import State
 from models.review import Review
 from models.engine import file_storage
-from models.engine import db_storage
-from os import getenvb
+# from models.engine import db_engine
+from os import getenv
 
 
-if getenvb('HBNB_TYPE_STORAGE') == 'db':
+if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
     storage = db_storage.DBStorage()
+    print("USING DB")
 else:
     storage = file_storage.FileStorage()
+    print("USING FS")
 storage.reload()
