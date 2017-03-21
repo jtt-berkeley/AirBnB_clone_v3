@@ -21,7 +21,6 @@ class DBstorage:
         else:
             for i in ['User', 'State', 'Amenity', 'Place', 'Review']:
                 self.__session.query(i).all()
-        self.__session.
     def new(self, obj):
         self.__session.add(obj)
     def save(self):
