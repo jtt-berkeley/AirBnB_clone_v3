@@ -2,8 +2,10 @@
 from datetime import datetime
 import uuid
 import models
-from sqlalchemy import Column, Integer, String, Table
+from sqlalchemy import Column, Integer, String, Table, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from os import getenvb
+import uuid
 """
 This module contains the BaseModel class:
 All classes should inherit from this class
@@ -13,10 +15,11 @@ Base = declarative_base()
 
 class BaseModel:
     """The base class for all storage objects in this project"""
-    id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(datetime.now(),nullable=False)
-    updated_at = Column(datetime.now(),nullable=False)
-
+    if getenvb('HBNB_TYPE_STORAGE') == 'db':
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime(), datetime.now(), nullable=False)
+        updated_at = Column(DateTime(), datetime.now(), nullable=False,
+                            onupdate=datetime.now)
     def __init__(self, *args, **kwargs):
         """
         initialize class object
