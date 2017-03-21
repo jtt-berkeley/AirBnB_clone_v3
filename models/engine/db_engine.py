@@ -26,34 +26,37 @@ class DBstorage:
                                  "Amenity": Amenity, "city": City,
                                  "Place": Place, "Review": Review,
                                  "State": State}
+        Base.metadata.create_all(self.__engine)
 
     def all(self, cls=None):
         orm_objects = {}
         if cls:
             cls_obj = self.__session.query(cls).all()
-            print("\n\n\n",cls_obj)
         else:
             for a, i in self.__models_available.items():
                 j = self.__session.query(i).all()
-                print(a,"\n\n\n")
                 if j:
                     for k in j:
-                        print(k)
-                        orm_objects[k.__dict__['id']] = k.__dict__
-                    print(orm_objects)
+                        print(k.id)
+                        orm_objects[k.__dict__['id']] = k
             return orm_objects
 
                 #     print(type(j))
                 # print(,self.__session.query(i).all())
     def new(self, obj):
         print(obj, type(obj))
+        print("in new")
         self.__session.add(obj)
-    def save(self):
         self.__session.commit()
+        print("able to add session")
+    def save(self):
+        print("enter save")
+        self.__session.flush()
+        print("able to save")
     def delete(self, obj=None):
         if obj is not None:
+            self.__session.commit()
             self.__session.delete(obj)
     def reload(self):
-        Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()

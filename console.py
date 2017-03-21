@@ -87,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
                     pass
             if (result[key].count('"') == (result[key].count('\\"') + 2) and
                " " not in result[key]):
-                result[key] = str(result[key].replace("_", " "))
+                result[key] = str(result[key].replace("_", " "))[1:-1]
             else:
                 print("String Format Error for {}".format(result[key]))
                 return None
