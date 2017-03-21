@@ -29,8 +29,8 @@ class Test_Console(unittest.TestCase):
         test_args = {'updated_at': datetime(2017, 2, 11, 23, 48, 34, 339879),
                      'id': 'd3da85f2-499c-43cb-b33d-3d7935bc808c',
                      'created_at': datetime(2017, 2, 11, 23, 48, 34, 339743),
-                     'name': 'Ace'}
-        self.model = BaseModel(test_args)
+                     'name': 'SELF.MODEL'}
+        self.model = BaseModel(**test_args)
         self.model.save()
 
     def tearDown(self):

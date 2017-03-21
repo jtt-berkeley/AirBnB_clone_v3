@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-# from models import *
+from models import *
 
 
 class Test_BaseModel(unittest.TestCase):
@@ -44,7 +44,7 @@ class Test_BaseModel(unittest.TestCase):
         self.assertNotEqual(self.model2.__dict__, jsonified)
         self.assertNotIsInstance(jsonified["created_at"], datetime)
         self.assertNotIsInstance(jsonified["updated_at"], datetime)
-        self.assertEqual(jsonified["created_at"], '2017-02-10 02:06:55.258849')
+        self.assertEqual(jsonified["created_at"], '2017-02-10T02:06:55.258849')
         self.assertTrue(hasattr(jsonified, "__class__"))
         self.assertEqual(jsonified["__class__"], "BaseModel")
 
