@@ -20,7 +20,6 @@ class BaseModel:
         created_at = Column(DateTime(), datetime.now(), nullable=False)
         updated_at = Column(DateTime(), datetime.now(), nullable=False,
                             onupdate=datetime.now)
-
     def __init__(self, *args, **kwargs):
         """
         initialize class object
@@ -32,28 +31,41 @@ class BaseModel:
            kwargs: a dictionay, if the id and timestamp are missing they will
                    be created
         """
-        if args:
-            dict_found = 0
-            for arg in args:
-                if type(arg) == dict:
-                    dict_found = 1
-                    break
-
-            if dict_found == 1:
-                args[0]['created_at'] = datetime.strptime(
-                    args[0]['created_at'], '%Y-%m-%d %H:%M:%S.%f')
-                args[0]['updated_at'] = datetime.strptime(
-                    args[0]['updated_at'], '%Y-%m-%d %H:%M:%S.%f')
-                self.__dict__ = args[0]
-            else:
-                # make a random UUID
-                self.id = str(uuid.uuid4())
+        fix = {}
+        if args: # this is not the right way to handle kwargs
+            fix = args[0]
+        if kwargs or fix:
+            if fix:
+                kwargs = fix
+            flag_id = False
+            flag_created_at = False
+            for k in kwargs.keys():
+                if k == "created_at" or k == "updated_at":
+                    if k == "created_at":
+                        flag_created_at = True
+                    if not isinstance(kwargs[k], datetime):
+                        kwargs[k] = datetime(*self.__str_to_numbers(kwargs[k]))
+                elif k == "id":
+                    flag_id = True
+                setattr(self, k, kwargs[k])
+            if not flag_created_at:
                 self.created_at = datetime.now()
-                self.updated_at = datetime.now()
-                model.storage.new(self)
-        if kwargs:
-            for key, value in kwargs.items():
-                setattr(self, key, value)
+            if not flag_id:
+                self.id = str(uuid.uuid4())
+        elif not args:
+            self.created_at = datetime.now()
+            self.id = str(uuid.uuid4())
+
+    def __str_to_numbers(self, s):
+        """
+        Prepares a string for datetime
+
+        **Arguments**
+           s: a string of numbers
+        """
+        tmp = ''.join([o if o not in "T;:.,-_" else " " for o in s]).split()
+        res = [int(i) for i in tmp]
+        return res
 
     def save(self):
         """method to update self"""
