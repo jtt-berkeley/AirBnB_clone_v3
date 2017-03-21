@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel, Base, Table, Column
 from sqlalchemy.orm import relationship, backref
-from os import getenvb
+from os import getenv
 """
 state module
     contain
@@ -13,7 +13,7 @@ class State(BaseModel, Base):
     """
     This is the State class
     """
-    if getenvb('HBNB_TYPE_STORAGE') == 'db':
+    if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "states"
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state")

@@ -4,18 +4,21 @@ import uuid
 import models
 from sqlalchemy import Column, Integer, String, Table, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from os import getenvb
+from os import getenv
 import uuid
 """
 This module contains the BaseModel class:
 All classes should inherit from this class
 """
-Base = declarative_base()
 
+if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
+    Base = declarative_base()
+else:
+    Base = object
 
 class BaseModel:
     """The base class for all storage objects in this project"""
-    if getenvb('HBNB_TYPE_STORAGE') == 'db':
+    if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         id = Column(String(60), primary_key=True, nullable=False)
         created_at = Column(DateTime(), datetime.now(), nullable=False)
         updated_at = Column(DateTime(), datetime.now(), nullable=False,
@@ -85,7 +88,7 @@ class BaseModel:
 
         dupe["created_at"] = dupe["created_at"].isoformat()
         dupe.pop('_sa_instance_state', None)
-        sqlAlchemy_storage_engine
+        # sqlAlchemy_storage_engine
         if ("updated_at" in dupe):
             dupe["updated_at"] = dupe["updated_at"].isoformat()
         dupe["__class__"] = type(self).__name__

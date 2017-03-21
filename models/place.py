@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from models import BaseModel, Base, Table, Column
+from models.base_model import BaseModel, Base, Table, Column
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy import ForeignKey
-from os import getenvb
+from sqlalchemy import ForeignKey, String
+from os import getenv
 """
 place module
     contains
@@ -18,16 +18,16 @@ class PlaceAmenity(Base):
     of the SQLAlchmeny
     """
     __tablename__ = "place_amenity"
-    place_id = Column(String(60), primary_key=True,
-                      ForeignKey('places.id'), nullable=False)
-    amenity_id = Column(String(60), primary_key=True,
-                        ForeignKey('amenities.id'), nullable=False)
+    place_id = Column(String(60), ForeignKey('places.id'),
+                      primary_key=True, nullable=False)
+    amenity_id = Column(String(60), ForeignKey('amenities.id'),
+                        primary_key=True, nullable=False)
 
 class Place(BaseModel, Base):
     """
     Place Class
     """
-    if getenvb('HBNB_TYPE_STORAGE') == 'db':
+    if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         __tablename__ = "places"
         city_id = Column(String(60), ForeignKey('city.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('user.id'), nullable=False)
