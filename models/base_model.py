@@ -36,12 +36,9 @@ class BaseModel:
            kwargs: a dictionay, if the id and timestamp are missing they will
                    be created
         """
-        fix = {}
         if args: # this is not the right way to handle kwargs
-            fix = args[0]
-        if kwargs or fix:
-            if fix:
-                kwargs = fix
+            kwargs = args[0]
+        if kwargs:
             flag_id = False
             flag_created_at = False
             for k in kwargs.keys():

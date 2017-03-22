@@ -22,39 +22,41 @@ class DBstorage:
             getenv('HBNB_MYSQL_PWD'),
             getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_DB')))
-        self.__models_available = { "User": User,
-                                 "Amenity": Amenity, "city": City,
-                                 "Place": Place, "Review": Review,
-                                 "State": State}
+        self.__models_available = {"User": User,
+                                   "Amenity": Amenity, "city": City,
+                                   "Place": Place, "Review": Review,
+                                   "State": State}
         Base.metadata.create_all(self.__engine)
 
     def all(self, cls=None):
         orm_objects = {}
         if cls:
-            cls_obj = self.__session.query(cls).all()
+            for k in self.__session.query(cls):
+                orm_objects[k.__dict__['id']] = k
         else:
-            for a, i in self.__models_available.items():
+            for i in self.__models_available.values():
                 j = self.__session.query(i).all()
                 if j:
                     for k in j:
                         print(k.id)
                         orm_objects[k.__dict__['id']] = k
-            return orm_objects
+        return orm_objects
 
-                #     print(type(j))
-                # print(,self.__session.query(i).all())
     def new(self, obj):
         print(obj, type(obj))
         print("in new")
         self.__session.add(obj)
         print("able to add session")
+
     def save(self):
         print("enter save")
         self.__session.commit()
         print("able to save")
+
     def delete(self, obj=None):
         if obj is not None:
             self.__session.delete(obj)
+
     def reload(self):
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
