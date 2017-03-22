@@ -23,11 +23,11 @@ class DBstorage:
             getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_DB')))
         self.__models_available = {"User": User,
-                                   "Amenity": Amenity, "city": City,
+                                   "Amenity": Amenity, "City": City,
                                    "Place": Place, "Review": Review,
                                    "State": State}
         if getenv('HBNB_MYSQL_ENV') == 'test':
-            base.metadata.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
     def all(self, cls=None):
         orm_objects = {}
         if cls:
