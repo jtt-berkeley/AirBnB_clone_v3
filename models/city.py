@@ -19,6 +19,7 @@ class City(BaseModel, Base):
         name = Column(String(128), nullable=False)
     else:
         name = ""
+        state_id = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
