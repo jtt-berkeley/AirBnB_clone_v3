@@ -97,4 +97,6 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Remove an object from the dictionary"""
-        FileStorage._objects.pop(obj, None)
+        if obj:
+            FileStorage.__objects.pop(obj.id, None)
+            self.save()

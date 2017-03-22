@@ -14,7 +14,7 @@ This is the db_storage module
 """
 
 
-class DBstorage:
+class DBStorage:
     __engine = None
     __session = None
 
@@ -31,7 +31,7 @@ class DBstorage:
                                    "Amenity": Amenity, "City": City,
                                    "Place": Place, "Review": Review,
                                    "State": State}
-        if getenv('HBNB_MYSQL_ENV') == 'test':
+        if getenv('HBNB_MYSQL_ENV', 'not') == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -47,7 +47,6 @@ class DBstorage:
                 j = self.__session.query(i).all()
                 if j:
                     for k in j:
-                        print(k.id)
                         orm_objects[k.__dict__['id']] = k
         return orm_objects
 
