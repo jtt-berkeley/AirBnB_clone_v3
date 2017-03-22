@@ -12,7 +12,7 @@ from os import getenv
 
 
 if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
-    storage = db_storage.DBstorage()
+    storage = db_storage.DBStorage()
 else:
     storage = file_storage.FileStorage()
 storage.reload()
