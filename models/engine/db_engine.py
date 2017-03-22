@@ -26,8 +26,9 @@ class DBstorage:
                                    "Amenity": Amenity, "city": City,
                                    "Place": Place, "Review": Review,
                                    "State": State}
-        Base.metadata.create_all(self.__engine)
 
+        if getenv('HBNB_MYSQL_ENV') == 'test':
+            base.metadata.drop_all(self.__engine)
     def all(self, cls=None):
         orm_objects = {}
         if cls:
@@ -53,5 +54,6 @@ class DBstorage:
             self.__session.delete(obj)
 
     def reload(self):
+        Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
