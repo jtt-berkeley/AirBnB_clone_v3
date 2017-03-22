@@ -1,14 +1,12 @@
 import unittest
 import os
-
-os.environ["FS_TEST"] = "yes"
-
 import sys
 import io
 from contextlib import contextmanager
 from datetime import datetime
 from console import HBNBCommand
 from models import *
+
 
 @contextmanager
 def captured_output():
