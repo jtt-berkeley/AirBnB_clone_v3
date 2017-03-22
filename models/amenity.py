@@ -7,6 +7,7 @@ amenity module
         the Amentiry class inherts from BaseModel and Base
 """
 
+
 class Amenity(BaseModel, Base):
     """
     The Amenity class
