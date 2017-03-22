@@ -26,7 +26,6 @@ class DBstorage:
                                    "Amenity": Amenity, "city": City,
                                    "Place": Place, "Review": Review,
                                    "State": State}
-
         if getenv('HBNB_MYSQL_ENV') == 'test':
             base.metadata.drop_all(self.__engine)
     def all(self, cls=None):
@@ -54,6 +53,10 @@ class DBstorage:
             self.__session.delete(obj)
 
     def reload(self):
+        """
+        WARNING!!!! I'm not sure if Base.metadata.create_all needs to
+        be in the init method
+        """
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
