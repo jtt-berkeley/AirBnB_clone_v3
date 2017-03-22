@@ -13,8 +13,6 @@ from os import getenv
 
 if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
     storage = db_engine.DBstorage()
-    print("USING DB")
 else:
     storage = file_storage.FileStorage()
-    print("USING FS")
 storage.reload()

@@ -10,13 +10,11 @@ import uuid
 This module contains the BaseModel class:
 All classes should inherit from this class
 """
-
 if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
     Base = declarative_base()
-    print("declarative base")
 else:
     Base = object
-    print("object base")
+
 
 class BaseModel:
     """The base class for all storage objects in this project"""
@@ -25,6 +23,7 @@ class BaseModel:
         created_at = Column(DateTime(), default=datetime.now(), nullable=False)
         updated_at = Column(DateTime(), default=datetime.now(), nullable=False,
                             onupdate=datetime.now)
+
     def __init__(self, *args, **kwargs):
         """
         initialize class object
@@ -36,7 +35,8 @@ class BaseModel:
            kwargs: a dictionay, if the id and timestamp are missing they will
                    be created
         """
-        if args: # this is not the right way to handle kwargs
+
+        if args:  # this is not the right way to handle kwargs
             kwargs = args[0]
         if kwargs:
             flag_id = False

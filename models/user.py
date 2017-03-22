@@ -22,7 +22,6 @@ class User(BaseModel, Base):
         last_name = Column(String(128), nullable=True)
         places = relationship("Place", backref="user")
     else:
-        print("USING USER FS")
         email = ""
         password = ""
         first_name = ""

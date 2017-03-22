@@ -43,15 +43,10 @@ class DBstorage:
         return orm_objects
 
     def new(self, obj):
-        print(obj, type(obj))
-        print("in new")
         self.__session.add(obj)
-        print("able to add session")
 
     def save(self):
-        print("enter save")
         self.__session.commit()
-        print("able to save")
 
     def delete(self, obj=None):
         if obj is not None:
