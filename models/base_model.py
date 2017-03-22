@@ -86,7 +86,6 @@ class BaseModel:
         dupe.pop('_sa_instance_state', None)
 
         dupe["created_at"] = dupe["created_at"].isoformat()
-        dupe.pop('_sa_instance_state', None)
         # sqlAlchemy_storage_engine
         if ("updated_at" in dupe):
             dupe["updated_at"] = dupe["updated_at"].isoformat()
