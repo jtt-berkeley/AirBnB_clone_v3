@@ -20,8 +20,8 @@ class BaseModel:
     """The base class for all storage objects in this project"""
     if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
         id = Column(String(60), primary_key=True, nullable=False)
-        created_at = Column(DateTime(), default=datetime.now(), nullable=False)
-        updated_at = Column(DateTime(), default=datetime.now(), nullable=False,
+        created_at = Column(DateTime(timezone=True), default=datetime.now(), nullable=False)
+        updated_at = Column(DateTime(timezone=True), default=datetime.now(), nullable=False,
                             onupdate=datetime.now)
 
     def __init__(self, *args, **kwargs):

@@ -155,9 +155,8 @@ class HBNBCommand(cmd.Cmd):
             return
         all_objs = storage.all()
         for k, v in all_objs.items():
-            if k == args[1] and args[0] == all_objs[k].__class__.__name__:
-                del all_objs[k]
-                storage.save()
+            if k == args[1] and args[0] == v.__class__.__name__:
+                storage.delete(v)
                 return
         print("** no instance found **")
 
