@@ -15,6 +15,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 # from models import storage
+import os
 
 
 class FileStorage:
@@ -29,11 +30,13 @@ class FileStorage:
         __models_available: private, classes currently handled
     """
     __file_path = "file.json"
+    if os.getenv("FS_TEST", "no") == "yes":
+        __file_path = "test_file.json"
     __objects = {}
 
     def __init__(self):
         """Instantiate the class"""
-        self.__models_available = {"User": User,
+        self.__models_available = {"User": User, "BaseModel":BaseModel,
                                    "Amenity": Amenity, "city": City,
                                    "Place": Place, "Review": Review,
                                    "State": State}
@@ -70,8 +73,7 @@ class FileStorage:
         store = {}
         for k in FileStorage.__objects.keys():
             store[k] = FileStorage.__objects[k].to_json()
-
-        with open(FileStorage.__file_path, mode="w", encoding="utf-8") as fd:
+        with open(FileStorage.__file_path, mode="w+", encoding="utf-8") as fd:
             fd.write(json.dumps(store))
 
     def reload(self):
