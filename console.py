@@ -80,30 +80,20 @@ class HBNBCommand(cmd.Cmd):
         **Return**
             a dictinary or None.
         """
-        try:
-            result = dict([x.split("=") for x in a_list])
-        except ValueError:
-            print("Format Error for attribute=value pairs")
-            return None
-        for key in result.keys():
-            if "." in result[key]:
-                try:
-                    result[key] = float(result[key])
-                    continue
-                except (TypeError, ValueError):
-                    pass
+        result = {}
+        for element in a_list:
+            temp = element.split("=")
+            if len(temp) != 2:
+                continue
+            if temp[1].isdigit():
+                if "." in temp[1]:
+                    result[temp[0]] = float(temp[1])
+                else:
+                    result[temp[0]] = int(temp[1])
             else:
-                try:
-                    result[key] = int(result[key])
-                    continue
-                except (TypeError, ValueError):
-                    pass
-            if (result[key].count('"') == (result[key].count('\\"') + 2) and
-               " " not in result[key]):
-                result[key] = str(result[key].replace("_", " "))[1:-1]
-            else:
-                print("String Format Error for {}".format(result[key]))
-                return None
+                if (temp[1].count('"') == (temp[1].count('\\"') + 2) and
+                    " " not in temp[1]):
+                    result[temp[0]] = temp[1].replace("_", " ")[1:-1]
         return result
 
     def do_show(self, args):
