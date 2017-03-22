@@ -47,15 +47,13 @@ class DBstorage:
         print(obj, type(obj))
         print("in new")
         self.__session.add(obj)
-        self.__session.commit()
         print("able to add session")
     def save(self):
         print("enter save")
-        self.__session.flush()
+        self.__session.commit()
         print("able to save")
     def delete(self, obj=None):
         if obj is not None:
-            self.__session.commit()
             self.__session.delete(obj)
     def reload(self):
         Session = sessionmaker(bind=self.__engine)
