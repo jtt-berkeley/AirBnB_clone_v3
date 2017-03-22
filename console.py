@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+This is module base_model
+This module defines one class HBNBCommand.
+It inherits from cmd and creates a command interpreter
+"""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -11,14 +16,22 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb)'
-    storage.reload()
+    """
+    Create a command interpreter.
 
+    **Class Attributes**
+        prompt: the prompt
+        valid_classes: all the classes currently handled by the
+        interpreter
+    """
+    prompt = '(hbnb)'
+    # storage.reload()
     valid_classes = {"BaseModel": BaseModel, "User": User,
                      "Amenity": Amenity, "City": City, "Place": Place,
                      "Review": Review, "State": State}
 
     def emptyline(self):
+        """handles empty commands"""
         pass
 
     def do_quit(self, args):
@@ -59,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
 
     def __create_help(self, a_list):
         """
-        Controles the list of key value arguments passed to d_create
+        Controles the list of key value arguments passed to do_create
 
         **Arguments**
             a_list: a list of key=value
@@ -164,8 +177,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                for instance in storage.all().values():
-                    if instance.__class__.__name__ == ClassName:
+                for instance in storage.all(ClassName).values():
                         print(instance)
 
     def do_update(self, args):
