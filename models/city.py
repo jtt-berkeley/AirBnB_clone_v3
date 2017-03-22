@@ -22,4 +22,7 @@ class City(BaseModel, Base):
         state_id = ""
 
     def __init__(self, *args, **kwargs):
+        """
+        Initializes from BaseModel
+        """
         super().__init__(*args, **kwargs)

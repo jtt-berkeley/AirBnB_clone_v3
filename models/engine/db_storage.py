@@ -10,6 +10,9 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
+"""
+This is the db_storage module
+"""
 
 
 class DBstorage:
@@ -17,18 +20,25 @@ class DBstorage:
     __session = None
 
     def __init__(self):
+        """
+        initializes engine
+        """
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             getenv('HBNB_MYSQL_USER'),
             getenv('HBNB_MYSQL_PWD'),
             getenv('HBNB_MYSQL_HOST'),
             getenv('HBNB_MYSQL_DB')))
         self.__models_available = {"User": User,
-                                   "Amenity": Amenity, "city": City,
+                                   "Amenity": Amenity, "City": City,
                                    "Place": Place, "Review": Review,
                                    "State": State}
-        Base.metadata.create_all(self.__engine)
+        if getenv('HBNB_MYSQL_ENV') == 'test':
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
+        """
+        returns a dictionary of all the class objects
+        """
         orm_objects = {}
         if cls:
             for k in self.__session.query(cls):
@@ -43,15 +53,29 @@ class DBstorage:
         return orm_objects
 
     def new(self, obj):
+        """
+        adds a new obj to the session
+        """
         self.__session.add(obj)
 
     def save(self):
+        """
+        saves the objects fom the current session
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
+        """
+        deletes an object from the current session
+        """
         if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
+        """
+        WARNING!!!! I'm not sure if Base.metadata.create_all needs to
+        be in the init method
+        """
+        Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
