@@ -3,7 +3,7 @@ from datetime import datetime
 from models import *
 import os
 
-print("DEBUG", os.getenv('HBNB_TYPE_STORAGE', 'fs'))
+
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') == 'db',
                  "db does not have BaseModel")
 class Test_BaseModel(unittest.TestCase):
