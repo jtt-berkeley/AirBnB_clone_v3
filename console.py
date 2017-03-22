@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+This is module base_model
+This module defines one class HBNBCommand.
+It inherits from cmd and creates a command interpreter
+"""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -11,14 +16,22 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb)'
-    storage.reload()
+    """
+    Create a command interpreter.
 
+    **Class Attributes**
+        prompt: the prompt
+        valid_classes: all the classes currently handled by the
+        interpreter
+    """
+    prompt = '(hbnb)'
+    # storage.reload()
     valid_classes = {"BaseModel": BaseModel, "User": User,
                      "Amenity": Amenity, "City": City, "Place": Place,
                      "Review": Review, "State": State}
 
     def emptyline(self):
+        """handles empty commands"""
         pass
 
     def do_quit(self, args):
@@ -39,18 +52,19 @@ class HBNBCommand(cmd.Cmd):
             key=value pairs
         """
         args = args.split()
-        if not args or (args and len(args[0]) < 1):
+        l = len(args)
+        if l < 1:
             print("** class name missing **")
         else:
             if args[0] in HBNBCommand.valid_classes.keys():
-                new_obj = HBNBCommand.valid_classes[args[0]]()
-                # get the key value pairs
-                if args[1]:
+                if l == 1:
+                    new_obj = HBNBCommand.valid_classes[args[0]]()
+                else:
                     result = self.__create_help(args[1:])
                     if result is None:
                         print("** Object fails **")
                         return
-                    new_obj.__dict__.update(result)
+                    new_obj = HBNBCommand.valid_classes[args[0]](**result)
                 print(new_obj.id)
                 new_obj.save()
             else:
@@ -58,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
 
     def __create_help(self, a_list):
         """
-        Controles the list of key value arguments passed to d_create
+        Controles the list of key value arguments passed to do_create
 
         **Arguments**
             a_list: a list of key=value
@@ -86,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
                     pass
             if (result[key].count('"') == (result[key].count('\\"') + 2) and
                " " not in result[key]):
-                result[key] = str(result[key].replace("_", " "))
+                result[key] = str(result[key].replace("_", " "))[1:-1]
             else:
                 print("String Format Error for {}".format(result[key]))
                 return None
@@ -163,8 +177,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                for instance in storage.all().values():
-                    if instance.__class__.__name__ == ClassName:
+                for instance in storage.all(ClassName).values():
                         print(instance)
 
     def do_update(self, args):
