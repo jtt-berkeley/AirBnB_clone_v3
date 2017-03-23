@@ -1,8 +1,5 @@
 import unittest
 import os
-
-os.environ["FS_TEST"] = "yes"
-
 from datetime import datetime
 from models.engine.file_storage import FileStorage
 from models import *
@@ -23,24 +20,23 @@ class Test_FileStorage(unittest.TestCase):
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
         self.model = BaseModel(test_args)
 
-        self.test_len = 0
-        if os.path.isfile("file.json"):
-            self.test_len = len(self.store.all())
+        self.test_len = len(self.store.all())
 
-    def tearDown(self):
-        import os
-        if os.path.isfile("file.json"):
-            os.remove('file.json')
+#    @classmethod
+#    def tearDownClass(cls):
+#        import os
+#        if os.path.isfile("test_file.json"):
+#            os.remove('test_file.json')
 
     def test_all(self):
         self.assertEqual(len(self.store.all()), self.test_len)
 
     def test_new(self):
         # note: we cannot assume order of test is order written
-        self.test_len = len(self.store.all())
+        test_len = len(self.store.all())
         # self.assertEqual(len(self.store.all()), self.test_len)
         self.model.save()
-        self.assertEqual(len(self.store.all()), self.test_len + 1)
+        self.assertEqual(len(self.store.all()), test_len + 1)
         a = BaseModel()
         a.save()
         self.assertEqual(len(self.store.all()), self.test_len + 2)
