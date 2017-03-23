@@ -209,5 +209,49 @@ class Test_Console(unittest.TestCase):
         output = out.getvalue().strip()
         self.assertEqual(output, "** value missing **")
 
+    def test_state_argument(self):
+        with captured_output() as (out, err):
+            self.cli.do_create('State name="WEIRD"')
+        with captured_output() as (out, err):
+            self.cli.do_all("State")
+        output = out.getvalue().strip()
+        self.assertTrue("WEIRD" in output)
+
+    def test_city_2_arguments(self):
+        with captured_output() as (out, err):
+            self.cli.do_create('State name="Arizona"')
+        output = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_create('City state_id="{}" name="Fremont"'.format(
+                output))
+
+    def test_city_2_arguments_space(self):
+        with captured_output() as (out, err):
+            self.cli.do_create('State name="Arizona"')
+        output = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_create('City state_id="{}" name="Alpha_Beta"'.format(
+                output))
+        output = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_show('City {}'.format(output))
+        output = out.getvalue().strip()
+        self.assertTrue("Alpha Beta" in output)
+
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') == 'db', "db")
+    def test_place(self):
+        with captured_output() as (out, err):
+            self.cli.do_create('Place city_id="" user_id=""'
+                               ' name="My_house"'
+                               ' description="no_description_yet"'
+                               ' number_rooms=4 number_bathrooms=1 max_guest=3'
+                               ' price_by_night=100 latitude=120.12'
+                               ' longitude=101.4')
+        output = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_show('Place {}'.format(output))
+        output = out.getvalue().strip()
+        self.assertTrue("My house" in output)
+
 if __name__ == "__main__":
     unittest.main()

@@ -33,7 +33,6 @@ class Test_DBStorage(unittest.TestCase):
         cls.store._DBStorage__session.close()
         storage.reload()
 
-
     def test_all(self):
         output = self.store.all('Amenity')
         self.assertEqual(len(output), self.test_len)
