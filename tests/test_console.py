@@ -7,6 +7,7 @@ from datetime import datetime
 from console import HBNBCommand
 from models import *
 
+
 @contextmanager
 def captured_output():
     new_out, new_err = io.StringIO(), io.StringIO()
