@@ -11,16 +11,16 @@ class Test_ReviewModel(unittest.TestCase):
     def test_initialization_no_arg(self):
         """test simple initialization with no arguments"""
         model = Review()
-        self.assertTrue(hasattr(self.model, "place_id"))
-        self.assertTrue(hasattr(self.model, "user_id"))
-        self.assertTrue(hasattr(self.model, "text"))
-        self.assertTrue(hasattr(self.model, "id"))
-        self.assertTrue(hasattr(self.model, "created_at"))
+        self.assertTrue(hasattr(model, "place_id"))
+        self.assertTrue(hasattr(model, "user_id"))
+        self.assertTrue(hasattr(model, "text"))
+        self.assertTrue(hasattr(model, "id"))
+        self.assertTrue(hasattr(model, "created_at"))
 
     def test_var_initialization(self):
         """Check default type"""
         model = Review()
-        self.assertIsInstance(new.created_at, datetime)
+        self.assertIsInstance(model.created_at, datetime)
 
     def test_save(self):
         """saving the object to storage"""
@@ -35,11 +35,13 @@ class Test_ReviewModel(unittest.TestCase):
                       'name': "TEST STATE FOR CITY"}
         state = State(test_state)
         state.save()
-        test_city = {'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
+        test_city = {'id': "005",
                      'name': "CITY SET UP",
                      'state_id': "001"}
-        model = City(test_city)
+        city = City(test_city)
         test_place = {'id': "003",
+                      'city_id': "005",
+                      'user_id': "001",
                       'name': "TEST REVIEW",
                       'description': "blah blah",
                       'number_rooms': 4,
@@ -49,16 +51,18 @@ class Test_ReviewModel(unittest.TestCase):
                       'latitude': 45.5,
                       'longitude': 23.4}
         place = Place(test_place)
-        test_review = {'text' = "a text",
+        test_review = {'text': "a text",
                        'place_id': "003",
                        'user_id': "001"}
         review = Review(test_review)
         user.save()
         state.save()
         city.save()
+        place.save()
         review.save()
         storage.delete(review)
-        storage.delete(city)
+        storage.delete(place)
+        # storage.delete(city) cascade deletes it
         storage.delete(user)
         storage.delete(state)
 

@@ -1,8 +1,5 @@
 import unittest
 import os
-
-os.environ["FS_TEST"] = "yes"
-
 from datetime import datetime
 from models import *
 
@@ -29,10 +26,6 @@ class Test_CityModel(unittest.TestCase):
         model.save()
         storage.delete(model)
         storage.delete(state)
-
-    def tearDownModule():
-        """tear down as leaving the module"""
-        os.environ["TEST_FS"] = "no"
 
     def test_var_initialization(self):
         """test simple initialization"""

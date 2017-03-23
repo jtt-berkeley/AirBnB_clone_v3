@@ -8,9 +8,13 @@ class Test_StateModel(unittest.TestCase):
     Test the state model class
     """
 
-    def setUp(self):
-        self.model = State()
-        self.model.save()
+    def test_minimal_creation(self):
+        """creating an object with no arguments"""
+        model = State()
+        self.assertTrue(hasattr(self.model, "name"))
+        self.assertTrue(hasattr(self.model, "id"))
+        self.assertTrue(hasattr(self.model, "created_at"))
+        self.assertTrue(hasattr(self.model, "updated_at"))
 
     def test_var_initialization(self):
         self.assertTrue(hasattr(self.model, "name"))

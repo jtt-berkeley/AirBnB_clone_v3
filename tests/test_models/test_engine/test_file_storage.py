@@ -1,10 +1,15 @@
 import unittest
-import os.path
+import os
+
+os.environ["FS_TEST"] = "yes"
+
 from datetime import datetime
 from models.engine.file_storage import FileStorage
 from models import *
 
 
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') == 'db',
+                 "db does not have FileStorage")
 class Test_FileStorage(unittest.TestCase):
     """
     Test the file storage class

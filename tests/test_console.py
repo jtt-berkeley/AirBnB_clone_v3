@@ -1,8 +1,5 @@
 import unittest
 import os
-
-os.environ["FS_TEST"] = "yes"
-
 import sys
 import io
 from contextlib import contextmanager
@@ -37,9 +34,6 @@ class Test_Console(unittest.TestCase):
 
     def tearDown(self):
         self.cli.do_destroy("Amenity d3da85f2-499c-43cb-b33d-3d7935bc808c")
-
-    def tearDownModule():
-        os.environ["TEST_FS"] = "no"
 
     def test_quit(self):
         with self.assertRaises(SystemExit):
