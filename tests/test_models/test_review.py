@@ -24,24 +24,23 @@ class Test_ReviewModel(unittest.TestCase):
 
     def test_save(self):
         """saving the object to storage"""
-        test_user = {'id': "001",
+        test_user = {'id': "004",
                      'email': "you@g.com",
                      'password': "1234",
                      'first_name': "TEST",
                      'last_name': "REVIEW"}
         user = User(test_user)
-        test_state = {'id': "001",
+        test_state = {'id': "004",
                       'created_at': datetime(2017, 2, 12, 00, 31, 55, 331997),
                       'name': "TEST STATE FOR CITY"}
         state = State(test_state)
-        state.save()
-        test_city = {'id': "005",
+        test_city = {'id': "007",
                      'name': "CITY SET UP",
-                     'state_id': "001"}
+                     'state_id': "004"}
         city = City(test_city)
-        test_place = {'id': "003",
-                      'city_id': "005",
-                      'user_id': "001",
+        test_place = {'id': "005",
+                      'city_id': "007",
+                      'user_id': "004",
                       'name': "TEST REVIEW",
                       'description': "blah blah",
                       'number_rooms': 4,
@@ -52,8 +51,8 @@ class Test_ReviewModel(unittest.TestCase):
                       'longitude': 23.4}
         place = Place(test_place)
         test_review = {'text': "a text",
-                       'place_id': "003",
-                       'user_id': "001"}
+                       'place_id': "005",
+                       'user_id': "004"}
         review = Review(test_review)
         user.save()
         state.save()

@@ -16,14 +16,23 @@ class Test_DBStorage(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
+        """create a session"""
+        # close previous connexion to same database
+        storage._DBStorage__session.close()
         cls.store = DBStorage()
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
-                     'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
+                     'id': "0234",
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900),
                      'name': 'wifi'}
-        cls.model = Amenity(test_args)
+        cls.model = Amenity(**test_args)
         cls.store.reload()
         cls.test_len = 0
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.store._DBStorage__session.close()
+        storage.reload()
+
 
     def test_all(self):
         output = self.store.all('Amenity')
@@ -62,9 +71,4 @@ class Test_DBStorage(unittest.TestCase):
             self.assertIsInstance(value.created_at, datetime)
 
 if __name__ == "__main__":
-    import sys
-    import os
-    sys.path.insert(1, os.path.join(os.path.split(__file__)[0], '../../..'))
-    from models import *
-    from models.engine.db_storage import DBStorage
     unittest.main()
