@@ -35,7 +35,8 @@ class Test_FileStorage(unittest.TestCase):
         # note: we cannot assume order of test is order written
         test_len = len(self.store.all())
         # self.assertEqual(len(self.store.all()), self.test_len)
-        self.model.save()
+        new_obj = State()
+        new_obj.save()
         self.assertEqual(len(self.store.all()), test_len + 1)
         a = BaseModel()
         a.save()
