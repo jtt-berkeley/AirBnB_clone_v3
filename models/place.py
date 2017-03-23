@@ -17,11 +17,12 @@ class PlaceAmenity(Base):
     PlaceAmenity class designed to link table places and table amenities
     of the SQLAlchmeny
     """
-    __tablename__ = "place_amenity"
-    place_id = Column(String(60), ForeignKey('places.id'),
-                      primary_key=True, nullable=False)
-    amenity_id = Column(String(60), ForeignKey('amenities.id'),
-                        primary_key=True, nullable=False)
+    if getenv('HBNB_TYPE_STORAGE', 'fs') == 'db':
+        __tablename__ = "place_amenity"
+        place_id = Column(String(60), ForeignKey('places.id'),
+                          primary_key=True, nullable=False)
+        amenity_id = Column(String(60), ForeignKey('amenities.id'),
+                            primary_key=True, nullable=False)
 
 
 class Place(BaseModel, Base):

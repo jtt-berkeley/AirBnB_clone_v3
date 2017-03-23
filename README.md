@@ -24,7 +24,6 @@ Where we are creating a command line interpretor to access objects that will sto
 - **Anne Cognet**, \<anne.cognet@holbertonschool.com>, @1million40
 - **Richard Sim**, \<richard.sim@holbertonschool.com>, @rdsim8589
 
-
 ----------------------------------------
 
 In order to begin the console, you can run either 'python3 console.py' or './console.py' in the command line.
@@ -45,3 +44,4 @@ Additionally, the console also supports the following command formats:
 - **\<class name>.destroy(\<id>)**, which will delete the instance with correct id and class;
 - **\<class name>.update(\<id>, \<attribute name>, \<attribute value>)**, which will update an instance of the given class and id with the new attribute;
 - **\<class name>.update(\<id>, \<dictionary representation>)**, which will update an instance of the given class and id with a dictionary of key value pairs that will be new attributes for the objects. 
+- **\<class name>.create(<key>=<value>) create an instance of the class

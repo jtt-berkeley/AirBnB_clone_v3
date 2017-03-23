@@ -1,7 +1,7 @@
 import unittest
+import os
 from datetime import datetime
 from models import *
-import os
 
 
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') == 'db',
