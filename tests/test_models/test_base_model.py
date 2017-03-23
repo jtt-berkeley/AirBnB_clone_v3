@@ -1,8 +1,5 @@
 import unittest
 import os
-
-os.environ["FS_TEST"] = "yes"
-
 from datetime import datetime
 from models import *
 
