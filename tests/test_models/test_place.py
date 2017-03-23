@@ -4,6 +4,7 @@ from datetime import datetime
 from models import *
 from models.place import PlaceAmenity
 
+
 class Test_PlaceModel(unittest.TestCase):
     """
     Test the place model class
@@ -29,7 +30,6 @@ class Test_PlaceModel(unittest.TestCase):
         """Check default type"""
         model = Place()
         self.assertIsInstance(model.created_at, datetime)
-
 
     def test_save(self):
         """saving the object to storage"""
@@ -119,7 +119,6 @@ class Test_PlaceAmenityModel(unittest.TestCase):
         # storage.delete(place)
         # storage.delete(user)
         # storage.delete(state)
-
 
 
 if __name__ == "__main__":

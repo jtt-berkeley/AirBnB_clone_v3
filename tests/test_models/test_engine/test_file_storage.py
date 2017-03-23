@@ -59,6 +59,10 @@ class Test_FileStorage(unittest.TestCase):
         for value in self.store.all().values():
             self.assertIsInstance(value.created_at, datetime)
 
+    def test_state(self):
+        """test State creation with an argument"""
+        pass
+
 if __name__ == "__main__":
     import sys
     import os
