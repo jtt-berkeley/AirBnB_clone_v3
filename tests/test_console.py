@@ -238,20 +238,32 @@ class Test_Console(unittest.TestCase):
         output = out.getvalue().strip()
         self.assertTrue("Alpha Beta" in output)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') == 'db', "db")
     def test_place(self):
         with captured_output() as (out, err):
-            self.cli.do_create('Place city_id="" user_id=""'
+            self.cli.do_create('State name="Another_State"')
+        state_id = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_create('City state_id="{}" name="Alpha_Beta"'.format(
+                state_id))
+        city_id = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_create('User email="m@a.com" password="1234" '
+                               'first_name="John" last_name="Doe"')
+        user_id = out.getvalue().strip()
+        with captured_output() as (out, err):
+            self.cli.do_create('Place city_id="{}" user_id="{}"'
                                ' name="My_house"'
                                ' description="no_description_yet"'
                                ' number_rooms=4 number_bathrooms=1 max_guest=3'
                                ' price_by_night=100 latitude=120.12'
-                               ' longitude=101.4')
+                               ' longitude=101.4'.format(city_id, user_id))
         output = out.getvalue().strip()
         with captured_output() as (out, err):
             self.cli.do_show('Place {}'.format(output))
         output = out.getvalue().strip()
         self.assertTrue("My house" in output)
+        self.assertTrue("100" in output)
+        self.assertTrue("120.12" in output)
 
 if __name__ == "__main__":
     unittest.main()
