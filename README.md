@@ -11,6 +11,8 @@ The project is currently in its first phase, where we are creating a command lin
 **Authors**
 - **Philip Yoo**, \<philip.yoo@holbertonschool.com>, @philipYoo10
 - **Jianqin Wang**, \<jianqin.wang@holbertonschool.com>, @jianqinwang94
+- **Richard Sim**, \<richard.sim@holbertonschool.com>
+- **Anne Cognet**, \<anne.cognet@holbertonschool.com>
 
 ----------------------------------------
 
@@ -32,3 +34,4 @@ Additionally, the console also supports the following command formats:
 - **\<class name>.destroy(\<id>)**, which will delete the instance with correct id and class;
 - **\<class name>.update(\<id>, \<attribute name>, \<attribute value>)**, which will update an instance of the given class and id with the new attribute;
 - **\<class name>.update(\<id>, \<dictionary representation>)**, which will update an instance of the given class and id with a dictionary of key value pairs that will be new attributes for the objects. 
+- **\<class name>.create(<key>=<value>) create an instance of the class
