@@ -3,7 +3,6 @@ from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from os import getenv
-from models.base_model import BaseModel
 from models.user import User
 from models.amenity import Amenity
 from models.city import City
@@ -41,7 +40,7 @@ class DBStorage:
         """
         orm_objects = {}
         if cls:
-            for k in self.__session.query(self.__models_available[cls]):
+            for k in self.__session.query(self.__models_available[cls]
                 orm_objects[k.__dict__['id']] = k
         else:
             for i in self.__models_available.values():
