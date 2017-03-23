@@ -4,15 +4,25 @@
 
 The purpose of this project is to recreate the AirBnB site, from the back-end data management to the front-end user interface. 
 
-The project is currently in its first phase, where we are creating a command line interpretor to access objects that will store user data. Users can use the console to create objects, update object attributes, remove objects, list all objects, and store and read data from a .json file.
+<h4>second phase</h4>
+Command line interpretor can now save objects into a mysql database by setting the following environmental variables
+
+* MySQL user = <HBNB_MYSQL_USER>
+* MySQL password = <HBNB_MYSQL_PWD>
+* MySQL host = <HBNB_MYSQL_HOST> (typically = localhost)
+* MySQL database = HBNB_MYSQL_DB
+* HBNB_TYPE_STORAGE = db
+
+<h4>first phase</h4>
+Where we are creating a command line interpretor to access objects that will store user data. Users can use the console to create objects, update object attributes, remove objects, list all objects, and store and read data from a .json file. 
 
 ----------------------------------------
 
 **Authors**
 - **Philip Yoo**, \<philip.yoo@holbertonschool.com>, @philipYoo10
 - **Jianqin Wang**, \<jianqin.wang@holbertonschool.com>, @jianqinwang94
-- **Richard Sim**, \<richard.sim@holbertonschool.com>
-- **Anne Cognet**, \<anne.cognet@holbertonschool.com>
+- **Anne Cognet**, \<anne.cognet@holbertonschool.com>, @1million40
+- **Richard Sim**, \<richard.sim@holbertonschool.com>, @rdsim8589
 
 ----------------------------------------
 
