@@ -78,7 +78,7 @@ ul {
     left: -0.5px;
     display: none;
     overflow: auto;
-    height-max: 300px;
+    max-height: 300px;
 }
 
 .popover.small-list {
