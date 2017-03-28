@@ -100,3 +100,21 @@ class FileStorage:
         if obj:
             FileStorage.__objects.pop(obj.id, None)
             self.save()
+
+    def close(self):
+        """Close a session"""
+        self.save()
+
+
+    def get_cities(self, state_id):
+        """
+        Gets all cities in a particular state given a state_id
+        """
+        for k, v in FileStorage.__objects.items():
+            if k == state_id and v.__class__.name == "State":
+                flag = True
+                break
+        if flag:
+            return v.cities()
+        else:
+            return None

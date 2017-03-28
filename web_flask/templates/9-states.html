@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        <h1>{{Query_name}}</h1>
+          {% if state == "all" %}
+	  <UL>
+	      {% for item in states|sort(attribute='name') %}
+                  <LI>{{item.id}}: <B>{{item.name}}</B></LI>
+	      {% endfor %}
+	  </UL>
+	  {% elif state == "1" %}
+	  <H3>Cities:</H3>
+	  <UL>
+	      {% for item in result %}
+                  <LI>{{item[0].id}}: <B>{{item[0].name}}</B>
+                      <UL>
+		          {% for city in item[1]|sort(attribute='name') %}
+                              <LI>{{city.id}}: <B>{{city.name}}</B></LI>
+		          {% endfor %}
+                      </UL>
+                  </LI>
+	      {% endfor %}
+          </UL>
+	  {% endif %}
+    </BODY>
+</HTML>

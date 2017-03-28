@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from models.base_model import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import (sessionmaker, scoped_session)
 from os import getenv
 from models.user import User
 from models.amenity import Amenity
@@ -17,6 +17,7 @@ This is the db_storage module
 class DBStorage:
     __engine = None
     __session = None
+    __Session = None
 
     def __init__(self):
         """
@@ -75,5 +76,19 @@ class DBStorage:
         be in the init method
         """
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine)
-        self.__session = Session()
+        self.__Session = scoped_session(sessionmaker(bind=self.__engine))
+        self.__session = self.__Session()
+
+    def close(self):
+        """
+        close a session
+        """
+        self.__Session.remove()
+
+    def get_cities(self, id_state):
+        """
+        Gets all cities in a particular state given a state_id
+        """
+        cities = self.__session.query(City).filter(
+            City.state_id == id_state).order_by(City.name).all()
+        return (cities)
