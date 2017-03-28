@@ -89,6 +89,6 @@ class DBStorage:
         """
         Gets all cities in a particular state given a state_id
         """
-        cities = self.__session.query(City).filter(
-            City.state_id == id_state).order_by(City.name).all()
-        return (cities)
+        state = self.__session.query(State).filter(
+            State.id == id_state).one()
+        return (sorted(state.cities, key=lambda x: x.name))

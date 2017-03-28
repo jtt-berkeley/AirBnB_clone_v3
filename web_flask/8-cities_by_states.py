@@ -20,8 +20,8 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route('/cities_by_states/')
-def cities_by_states():
+# @app.route('/cities_by_statess/')
+def cities_by_statess():
     """List all cities by states"""
     states = storage.all("State").values()
     cities = storage.all("City").values()
@@ -32,10 +32,22 @@ def cities_by_states():
                            Query_name="States", result = result)
 
 
+@app.route('/cities_by_states/')
+def cities_by_states():
+    """List all cities by states"""
+    states = storage.all("State").values()
+    result = []
+    for state in sorted(states, key=lambda x: x.name):
+        result.append([state, storage.get_cities(state.id)])
+    return render_template("8-cities_by_states.html",
+                           Query_name="States", result = result)
+
+
 @app.teardown_appcontext
 def close_session(exception):
     """Remove the db session or save file"""
     storage.close()
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
