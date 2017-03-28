@@ -38,7 +38,7 @@ def cities_by_states():
     states = storage.all("State").values()
     result = []
     for state in sorted(states, key=lambda x: x.name):
-        result.append([state, storage.get_cities(state.id)])
+        result.append([state, state.cities])
     return render_template("8-cities_by_states.html",
                            Query_name="States", result = result)
 

@@ -76,19 +76,10 @@ class DBStorage:
         be in the init method
         """
         Base.metadata.create_all(self.__engine)
-        self.__Session = scoped_session(sessionmaker(bind=self.__engine))
-        self.__session = self.__Session()
+        self.__session = scoped_session(sessionmaker(bind=self.__engine))
 
     def close(self):
         """
         close a session
         """
-        self.__Session.remove()
-
-    def get_cities(self, id_state):
-        """
-        Gets all cities in a particular state given a state_id
-        """
-        state = self.__session.query(State).filter(
-            State.id == id_state).one()
-        return (sorted(state.cities, key=lambda x: x.name))
+        self.__session.remove()
