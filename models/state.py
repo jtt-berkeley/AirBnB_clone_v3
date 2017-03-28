@@ -29,11 +29,11 @@ class State(BaseModel, Base):
         super(State, self).__init__(*args, **kwargs)
 
     if getenv('HBNB_TYPE_STORAGE', 'fs') != 'db':
+        @property
         def cities(self):
             """
             returns all cities in a State
             """
             all_cities = storage.all("City")
             result = [city for city in all_cities if city.state_id == self.id]
-            print(result)
             return result
