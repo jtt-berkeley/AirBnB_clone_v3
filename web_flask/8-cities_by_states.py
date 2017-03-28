@@ -22,6 +22,7 @@ app = Flask(__name__)
 
 @app.route('/cities_by_states/')
 def cities_by_states():
+    """List all cities by states"""
     states = storage.all("State").values()
     cities = storage.all("City").values()
     result = [[state, [city for city in cities if city.state_id == state.id]]
@@ -29,6 +30,12 @@ def cities_by_states():
     result.sort(key=lambda x: x[0].name)
     return render_template("8-cities_by_states.html",
                            Query_name="States", result = result)
+
+
+@app.teardown_appcontext
+def close_session():
+    """Remove the db session or save file"""
+    storage.close()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
