@@ -29,7 +29,7 @@ def hbnb_filters():
 
     amenities = storage.all("Amenity").values()
     return render_template("10-hbnb_filters.html",
-                           amenities=amenities, result = result)
+                           amenities=amenities, result=result)
 
 
 @app.teardown_appcontext

@@ -25,7 +25,6 @@ app = Flask(__name__)
 def cities_by_states(id_d="all"):
     states = storage.all("State")
     if id_d == "all":
-        print(states.values())
         return render_template("9-states.html", state="all",
                                Query_name="States",
                                states=states.values())

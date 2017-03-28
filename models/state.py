@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# from models import storage
+import models
 from models.base_model import BaseModel, Base, Table, Column, String
 from sqlalchemy.orm import relationship, backref
 from os import getenv
@@ -34,6 +34,6 @@ class State(BaseModel, Base):
             """
             returns all cities in a State
             """
-            all_cities = storage.all("City")
+            all_cities = models.storage.all("City").values()
             result = [city for city in all_cities if city.state_id == self.id]
             return result

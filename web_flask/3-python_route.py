@@ -26,7 +26,7 @@ def c_text(text):
     return "C {}".format(text.replace("_", " "))
 
 
-@app.route('/python/') # , defaults={'text': "is cool"})
+@app.route('/python/')   # , defaults={'text': "is cool"})
 # redirection, strict_slashes prevents the 301 redirect when missing last /
 # see http://stackoverflow.com/a/17628419/7484498
 # the default value can be put in 2 different places.
