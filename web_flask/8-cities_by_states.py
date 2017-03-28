@@ -33,7 +33,7 @@ def cities_by_states():
 
 
 @app.teardown_appcontext
-def close_session():
+def close_session(exception):
     """Remove the db session or save file"""
     storage.close()
 
