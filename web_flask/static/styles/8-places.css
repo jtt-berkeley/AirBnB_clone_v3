@@ -3,6 +3,7 @@
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
 }
 
 h1, h2 {
@@ -20,6 +21,7 @@ h1, h2 {
 }
 
 .places article {
+    min-width: 390px;
     max-width: 390px;
     min-height: 320px;
     padding: 20px;
@@ -40,21 +42,21 @@ h1, h2 {
     height: 60px;
     color: #ff5a5f;
     border: solid 4px #ff5a5f;
-    border-radius: 55px;
+    border-radius: 60px;
     font-size: 30px;
     float: right;
     padding: 2px;
-    margin: 0;
+    margin: 0px;
     line-height: 60px;
 }
 
 .places .informations {
     height: 80px;
-    width: 100%;
+    width: 390px;
     border-top: solid 1px #dddddd;
     border-bottom: solid 1px #dddddd;
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
+    justify-content: space-around;
 }
 
 .max_guest, .number_rooms, .number_bathrooms {

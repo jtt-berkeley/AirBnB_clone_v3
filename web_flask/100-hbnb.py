@@ -24,7 +24,15 @@ app = Flask(__name__)
 def hbnb():
     states = storage.all("State").values()
     amenities = storage.all("Amenity").values()
-    places = storage.all("Place").values()
+    places_tmp = storage.all("Place").values()
+    owners = storage.all("User")
+    places = []
+    for k, v in owners.items():
+        for place in places_tmp:
+            if k == place.user_id:
+                places.append(["{} {}".format(
+                    v.first_name, v.last_name), place])
+    places.sort(key=lambda x: x[1].name)
     return render_template("100-hbnb.html",
                            amenities=amenities, result=states, places=places)
 
