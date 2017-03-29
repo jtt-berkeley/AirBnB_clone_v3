@@ -27,18 +27,6 @@
                     </UL>
                  </LI>
 	       {% endfor %}
-	      <li><h2>Alabama:</h2>
-		<ul class="small-list">
-		  <li>City 1</li>
-		  <li>City 2</li>
-		</ul>
-              </li>
-	      <li><h2>California:</h2>
-		<ul class="small-list">
-		  <li>San Francisco</li>
-		  <li>Los Angeles</li>
-		</ul>
-              </li>
 	    </ul>
 	  </div><!--
 		  --><div class="amenities">
@@ -48,8 +36,6 @@
 	      {% for a in amenities|sort(attribute='name') %}
 	        <li>{{ a.name }}</li>
 	      {% endfor %}
-	      <li>Electricity</li>
-	      <li>Running water</li>
 	    </ul>
 	  </div>
 	  <button>Search</button>
