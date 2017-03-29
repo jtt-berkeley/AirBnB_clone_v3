@@ -207,7 +207,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in HBNBCommand.valid_classes.keys():
             print("** class doesn't exist **")
             return
-        all_objs = storage.all()
+        all_objs = storage.all(args[0])
         for k, v in all_objs.items():
             if k == args[1]:
                 setattr(v, args[2], args[3])
