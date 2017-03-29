@@ -20,7 +20,7 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route('/hbnb_filters')
+@app.route('/hbnb_filters/')
 def hbnb_filters():
     states = storage.all("State").values()
     result = []
