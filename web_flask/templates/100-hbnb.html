@@ -49,37 +49,15 @@
 	            <h2>{{place.name}}</h2>
 	            <div class="informations">
 	              <div class="max_guest">{{place.max_guest}} Guests</div>
-		      <div class="number_rooms">{{place.number_bedrooms}} Rooms</div>
-		      <div class="number_bathrooms">{{place.number_bathrooms}} Bathrooms</div>
+		      <div class="number_rooms">{{place.number_rooms}} Rooms</div>
+		      <div class="number_bathrooms">{{place.number_rooms}} Bathrooms</div>
 		    </div> <!-- end informations -->
 		    <div class="user"><b>Owner</b>: {{place.user_id}}</div>
+		    {% autoescape false %}
 		    <div class="description">{{place.description}}</div>
+		    {% endautoescape %}
 		</article>
 	    {% endfor %}
-	<article>
-	  <div class="price_by_night">85$</div>
-	  <h2>Tiny house</h2>
-	  <div class="informations">
-	    <div class="max_guest">3 guests</div>
-	    <div class="number_rooms">2 bedrooms</div>
-	    <div class="number_bathrooms">1 bathroom</div>
-	  </div> <!-- end informations -->
-	  <div class="user"><b>Owner</b>: Gamma Delta</div>
-	  <div class="description"> Nullam cursus gravida mauris eget congue. Vivamus aliquam, lorem a interdum tincidunt, purus diam elementum libero, id cursus enim nibh et elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec ut felis erat. Maecenas tempus posuere ipsum, sit amet elementum arcu ullamcorper et. Integer condimentum elementum quam, in pulvinar ante pharetra sed. Pellentesque ut risus ut leo viverra malesuada a vestibulum felis.
-	  </div>
-	</article>
-	<article>
-	  <div class="price_by_night">140$</div>
-	  <h2>A suite</h2>
-	  <div class="informations">
-	    <div class="max_guest">1 guest</div>
-	    <div class="number_rooms">2 bedrooms</div>
-	    <div class="number_bathrooms">1 bathroom</div>
-	  </div> <!-- end informations -->
-	  <div class="user"><b>Owner</b>: Eta Kappa</div>
-	  <div class="description"> Nullam cursus gravida mauris eget congue. Vivamus aliquam, lorem a interdum tincidunt, purus diam elementum libero, id cursus enim nibh et elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec ut felis erat. Maecenas tempus posuere ipsum, sit amet elementum arcu ullamcorper et. Integer condimentum elementum quam, in pulvinar ante pharetra sed. Pellentesque ut risus ut leo viverra malesuada a vestibulum felis.Donec ut felis erat. Maecenas tempus posuere ipsum, sit amet elementum arcu ullamcorper et. Integer condimentum elementum quam, in pulvinar ante pharetra sed. Pellentesque ut risus ut leo viverra malesuada a vestibulum felis.
-	  </div>
-	</article>
       </section> <!-- end places -->
     </div> <!-- end container -->
     <footer>

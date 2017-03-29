@@ -30,29 +30,31 @@ h1, h2 {
 
 .places h2 {
     font-size: 30px;
-    padding: 15px 0 20px 0;
+    padding: 10px 0 10px 0;
     text-align: left;
     min-height: 60px;
 }
 
 .places .price_by_night {
-    width: 60px;
+    min-width: 60px;
     height: 60px;
     color: #ff5a5f;
     border: solid 4px #ff5a5f;
-    border-radius: 60px;
+    border-radius: 55px;
     font-size: 30px;
     float: right;
-    padding: 3px;
+    padding: 2px;
     margin: 0;
     line-height: 60px;
 }
 
 .places .informations {
     height: 80px;
+    width: 100%;
     border-top: solid 1px #dddddd;
     border-bottom: solid 1px #dddddd;
     display: flex;
+    justify-content: center;
 }
 
 .max_guest, .number_rooms, .number_bathrooms {
@@ -62,6 +64,7 @@ h1, h2 {
     background-repeat: no-repeat;
     background-position: 50% 5px;
     line-height: 130px;
+    flex-grow: 1;
 }
 
 .max_guest {
