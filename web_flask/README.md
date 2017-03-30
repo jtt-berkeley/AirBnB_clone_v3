@@ -1,13 +1,17 @@
-<h1>0x04. AirBnB clone - Web framework</h1>
-<h2>Things to have learned</h2>
-<ul>
-<li>What is a Web Framework</li>
-<li>How to build a web framework with Flask</li>
-<li>How to define routes in Flask</li>
-<li>What is a route</li>
-<li>How to handle variables in a route</li>
-<li>What is a template</li>
-<li>How to create a HTML response in Flask by using a template</li>
-<li>How to create a dynamic template (loops, conditions...)</li>
-<li>How to display in HTML data from a MySQL database</li>
-</ul>
+<h2>AirBnB clone - Web framework</h2>
+
+For this part of the project, going back to our static webpages (see /web_static), we want to display the data we have stored (see /models/engine) and not fake values hard coded in the html pages.  
+
+This project is done in python.  
+The first 5 questions are an introduction to Flask.  
+The next 2 are in introduction to jinja.  
+The next questions are mixing jinja, Flask and the storage engine.  
+
+______
+**Readings**  
+- [What is a web framework](https://jeffknupp.com/blog/2014/03/03/what-is-a-web-framework/)
+- [What is Flask](http://flask.pocoo.org/docs/0.12/quickstart/)  
+- [What is jinja](http://jinja.pocoo.org/docs/2.9/templates/)  
+
+**Install**  
+`pip3 install Flask`
