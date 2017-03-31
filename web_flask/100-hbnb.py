@@ -37,8 +37,6 @@ def hbnb():
                            amenities=amenities, result=states, places=places)
 
 
-
-
 @app.teardown_appcontext
 def close_session(exception):
     """Remove the db session or save file"""
