@@ -63,6 +63,29 @@ class DBStorage:
         """
         self.__session.commit()
 
+    def get(self, cls, id):
+        """
+        retrieves an object
+        """
+        if cls is None:
+            return None
+        else cls:
+            for k in self.__session.query(self.__models_available[cls]):
+                if k.__dict__['id'] == id:
+                    return k
+
+    def count(self, cls=None):
+        """
+        returns the number of objects in
+        storage matching the given class name
+        """
+        if cls is None:
+            return len(self.all())
+        elif self.__models_available.get(cls):
+            d = self.all()
+            # d.get(cls)
+            return len(d.get(cls))
+
     def delete(self, obj=None):
         """
         deletes an object from the current session
