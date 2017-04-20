@@ -23,7 +23,7 @@ Where we are creating a command line interpretor to access objects that will sto
 - **Jianqin Wang**, \<jianqin.wang@holbertonschool.com>, @jianqinwang94
 - **Anne Cognet**, \<anne.cognet@holbertonschool.com>, @1million40
 - **Richard Sim**, \<richard.sim@holbertonschool.com>, @rdsim8589
-
+- **Ian**
 ----------------------------------------
 
 In order to begin the console, you can run either 'python3 console.py' or './console.py' in the command line.
