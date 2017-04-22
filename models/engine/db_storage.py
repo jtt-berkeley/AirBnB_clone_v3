@@ -69,7 +69,7 @@ class DBStorage:
         """
         if cls is None:
             return None
-        else cls:
+        else:
             for k in self.__session.query(self.__models_available[cls]):
                 if k.__dict__['id'] == id:
                     return k
@@ -83,8 +83,7 @@ class DBStorage:
             return len(self.all())
         elif self.__models_available.get(cls):
             d = self.all()
-            # d.get(cls)
-            return len(d.get(cls))
+            return len(self.all(cls))
 
     def delete(self, obj=None):
         """
@@ -99,7 +98,7 @@ class DBStorage:
         be in the init method
         """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine))
+        self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
     def close(self):
         """
