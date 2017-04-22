@@ -4,12 +4,10 @@ from flask import Blueprint, Flask
 from models import storage
 
 
-# instance of Flask
-app = Flask(__name__) 
-# register the blueprint app_views to your Flask instance app
+app = Flask(__name__)
 app.register_blueprint(app_views)
 
-# declare a method to handle @app.teardown_appcontext that calls storage.close()
+
 @app.teardown_appcontext
 def appteardown(exception):
     storage.close()
