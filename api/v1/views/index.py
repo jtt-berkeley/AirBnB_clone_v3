@@ -23,7 +23,3 @@ def appstats():
         "states": storage.count("State"),
         "users": storage.count("User")
     })
-
-@app_views.errorhandler(404)
-def page_not_found():
-    return jsonify({"error": "Not found"}), 404
