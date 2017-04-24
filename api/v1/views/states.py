@@ -10,14 +10,13 @@ import json
 from models import storage
 from models.state import State
 
-# added method GET and strict_slashes
+
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def states_all():
     myArr = []
     s = storage.all("State")
     for k, v in s.items():
         myArr.append(v.to_json())
-    #print(storage.all("State"))
     return jsonify(myArr)
 
 
@@ -33,7 +32,8 @@ def stateId(state_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def deleteState(state_id):
     """
     delete state object by stateId
@@ -45,6 +45,7 @@ def deleteState(state_id):
         return jsonify({}), 200
     except:
         abort(404)
+
 
 @app_views.route("/states", methods=['POST'], strict_slashes=False)
 def createState():
@@ -62,7 +63,6 @@ def createState():
     stateNew.save()
     stateObject = storage.get("State", stateNew.id).to_json()
     return jsonify(stateObject), 201
-
 
 
 @app_views.route("/states/<state_id>", methods=['PUT'], strict_slashes=False)
