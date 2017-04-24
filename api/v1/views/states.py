@@ -5,9 +5,10 @@ objects that handles all default
 RestFul API actions
 """
 from api.v1.views import app_views
-from flask import abort, jsonify
+from flask import abort, jsonify, request
 import json
 from models import storage
+from models.state import State
 
 # added method GET and strict_slashes
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -45,28 +46,44 @@ def deleteState(state_id):
     except:
         abort(404)
 
-@app_views.route("/states", methods=['POST'])
+@app_views.route("/states", methods=['POST'], strict_slashes=False)
 def createState():
     """
     creates a state
     """
     try:
         createdState = request.get_json()
-        if "name" not in createdState:
-            return "Missing name", 400
-        stateNew = State(createdState)
-        stateNew.save()
-        stateObject = storage.get("State", stateNew.id).to_json()
-        return jsonify(stateObject), 201
     except:
         return "Not a JSON", 400
 
-#@app_views.route("/states/<state_id>", methods=['PUT'])
-#def updateState(state_id):
-#    """
-#    updates a State
-#    """
-#    try:
-#        updatedState = request.get_json()
+    if "name" not in createdState:
+        return "Missing name", 400
+    stateNew = State(**createdState)
+    stateNew.save()
+    stateObject = storage.get("State", stateNew.id).to_json()
+    return jsonify(stateObject), 201
 
 
+
+
+
+
+
+"""
+@app_views.route("/states/<state_id>", methods=['PUT'], strict_slashes=False)
+def updateState(state_id):
+    try:
+        updatedState = request.get_json()
+        stateObject = storage.get("State", state_id)
+        if stateObject is None:
+            abort(404)
+        for k, v in updatedState.items():
+            if k == "id" or k == "updated_at" or k == "created_at":
+                continue
+            setattr(stateObject, k, v)
+        stateObject.save()
+        state = stateObject.to_json()
+        return jsonify(state), 200
+    except:
+        return "Not a JSON", 400
+"""
