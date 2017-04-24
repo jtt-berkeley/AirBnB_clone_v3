@@ -12,5 +12,10 @@ app.register_blueprint(app_views)
 def appteardown(exception):
     storage.close()
 
+
+@app_views.errorhandler(404)
+def page_not_found():
+    return jsonify({"error": "Not found"}), 404
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
