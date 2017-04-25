@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This is module file_storage
+This is super greatest module file_storage
 
 This module defines one class FileStorage.
 This class hadles saving the information in json in a file
