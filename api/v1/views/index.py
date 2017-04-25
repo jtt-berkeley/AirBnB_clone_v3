@@ -8,12 +8,12 @@ app_views that returns a JSON: "status": "OK"
 """
 
 
-@app_views.route('/status')
+@app_views.route('/status', strict_slashes=False)
 def appviews():
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats')
+@app_views.route('/stats', strict_slashes=False)
 def appstats():
     return jsonify({
         "amenities": storage.count("Amenity"),
