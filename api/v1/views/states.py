@@ -13,6 +13,9 @@ from models.state import State
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def states_all():
+    """
+    retrieves list of all state objects
+    """
     myArr = []
     s = storage.all("State")
     for k, v in s.items():
@@ -67,6 +70,9 @@ def createState():
 
 @app_views.route("/states/<state_id>", methods=['PUT'], strict_slashes=False)
 def updateState(state_id):
+    """
+    updates state by ID
+    """
     try:
         updatedState = request.get_json()
     except:
