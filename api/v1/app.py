@@ -4,7 +4,10 @@ from flask import Blueprint, Flask, make_response
 from models import storage
 import os
 
-
+"""
+first endpoint (route) will
+be to return the status of your API
+"""
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
