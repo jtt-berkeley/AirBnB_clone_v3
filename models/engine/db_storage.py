@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-from models.base_model import Base
+
+m models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import (sessionmaker, scoped_session)
 from os import getenv
@@ -10,7 +10,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 """
-This is the greatest db_storage module
+This is the db_storage module
 """
 
 
