@@ -86,6 +86,16 @@ class FileStorage:
             return self.__objects[id]
 
     def count(self, cls=None):
+        count = 0
+        if cls is None:
+            for k in FileStorage.__objects:
+                count += 1
+            return count
+        else:
+            for k in FileStorage.__objects.values():
+                if k.__class__.__name__ == cls:
+                    count += 1
+            return count
         return None
 
     def reload(self):
