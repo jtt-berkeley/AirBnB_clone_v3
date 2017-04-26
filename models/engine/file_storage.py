@@ -76,18 +76,6 @@ class FileStorage:
         with open(FileStorage.__file_path, mode="w+", encoding="utf-8") as fd:
             fd.write(json.dumps(store))
 
-    def get(self, cls, id):
-        """
-        Retrieves an object
-        """
-        if cls is None:
-            return None
-        elif self.__objects[id].__class__ == cls:
-            return self.__objects[id]
-
-    def count(self, cls=None):
-        return None
-
     def reload(self):
         """
         Restart from what is saved on file

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Creates a new view for State
+Creates a new view for City
 objects that handles all default
 RestFul API actions
 """
@@ -8,6 +8,7 @@ from api.v1.views import app_views
 from flask import abort, jsonify, request
 import json
 from models import City, State, storage
+
 
 @app_views.route("/states/<state_id>/cities", methods=['GET'],
                  strict_slashes=False)
@@ -53,3 +54,24 @@ def deleteCity(city_id):
         return jsonify({}), 200
     except:
         abort(404)
+
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
+def createCity(state_id):
+    """
+    create city object
+    """
+    getState = storage.get("State", state_id)
+    if getState is None:
+        abort(404)
+    try:
+        cityJson = request.get_json()
+        if "name" not in cityJson:
+            return "Missing name", 400
+        cityJson["state_id"] = state_id
+        cityNew = City(cityJson)
+        cityNew.save()
+        cityNewCreated = storage.get("City", cityNew.id).to_json()
+        return jsonify(cityNewCreated), 201
+    except:
+        return "Not a JSON", 400

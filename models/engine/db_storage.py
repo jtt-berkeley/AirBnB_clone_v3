@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-from models.base_model import Base
+
+m models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import (sessionmaker, scoped_session)
 from os import getenv
@@ -63,28 +63,6 @@ class DBStorage:
         """
         self.__session.commit()
 
-    def get(self, cls, id):
-        """
-        retrieves an object
-        """
-        if cls is None:
-            return None
-        else:
-            for k in self.__session.query(self.__models_available[cls]):
-                if k.__dict__['id'] == id:
-                    return k
-
-    def count(self, cls=None):
-        """
-        returns the number of objects in
-        storage matching the given class name
-        """
-        if cls is None:
-            return len(self.all())
-        elif self.__models_available.get(cls):
-            d = self.all()
-            return len(self.all(cls))
-
     def delete(self, obj=None):
         """
         deletes an object from the current session
@@ -98,7 +76,7 @@ class DBStorage:
         be in the init method
         """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        self.__session = scoped_session(sessionmaker(bind=self.__engine))
 
     def close(self):
         """
