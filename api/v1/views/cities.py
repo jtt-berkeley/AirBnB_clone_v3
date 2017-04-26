@@ -31,9 +31,11 @@ def city_get_all(state_id):
         abort(404)
 
 
-# server works with this one
-@app_views.route('cities/<city_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def getCity(city_id):
+    """
+    displays city by city ID
+    """
     try:
         city = storage.get("City", city_id).to_json()
         return jsonify(city)
@@ -55,6 +57,7 @@ def deleteCity(city_id):
     except:
         abort(404)
 
+
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
                  strict_slashes=False)
 def createCity(state_id):
@@ -75,3 +78,26 @@ def createCity(state_id):
         return jsonify(cityNewCreated), 201
     except:
         return "Not a JSON", 400
+
+
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
+def updateCity(city_id):
+    """
+    updates city by ID
+    """
+    try:
+        updatedCity = request.get_json()
+    except:
+        updatedCity = None
+    if updatedCity is None:
+        return "Not a JSON", 400
+    cityObject = storage.get("City", city_id)
+    if cityObject is None:
+        abort(404)
+    ignoredKeys = ["id", "state_id", "created_at", "updated_at"]
+    for k, v in updatedCity.items():
+        if k not in ignoredKeys:
+            setattr(cityObject, k, v)
+    cityObject.save()
+    city = cityObject.to_json()
+    return jsonify(city), 200
