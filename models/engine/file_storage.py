@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This is module file_storage
+This is super greatest module file_storage
 
 This module defines one class FileStorage.
 This class hadles saving the information in json in a file
@@ -75,6 +75,18 @@ class FileStorage:
             store[k] = FileStorage.__objects[k].to_json()
         with open(FileStorage.__file_path, mode="w+", encoding="utf-8") as fd:
             fd.write(json.dumps(store))
+
+    def get(self, cls, id):
+        """
+        Retrieves an object
+        """
+        if cls is None:
+            return None
+        elif self.__objects[id].__class__ == cls:
+            return self.__objects[id]
+
+    def count(self, cls=None):
+        return None
 
     def reload(self):
         """
