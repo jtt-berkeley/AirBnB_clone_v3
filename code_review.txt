@@ -1,0 +1,2 @@
+Imports in alphabetical order, clean code with documentation. Overall, very clear to understand and review, nice job.
+Some variables (such as "c") could have been a bit more descriptive, but apart from that, great code.
