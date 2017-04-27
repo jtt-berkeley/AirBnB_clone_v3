@@ -50,7 +50,7 @@ def deleteAmenity(amenity_id):
         abort(404)
 
 
-@app_views.route("/amenities", methods=['POST'], strict_slashes=False)
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def createAmenity():
     """
     creates Amenity object
@@ -62,29 +62,29 @@ def createAmenity():
 
     if "name" not in createdAmenity:
         return "Missing name", 400
-    amenityNew = Amenity(**createdAmenity)
+    amenityNew = Amenity(createdAmenity)
     amenityNew.save()
     amenityObject = storage.get("Amenity", amenityNew.id).to_json()
     return jsonify(amenityObject), 201
 
 
-@app_views.route("/amenity/<amenity_id>", methods=['PUT'],
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def updateAmenity(amenity_id):
     """
     updated Amenity by ID
     """
-    try:
-        updatedAmenity = request.get_json()
-    except:
-        return "Not a JSON", 400
-    amenityObject = storage.get("Amenity", state_id)
+    amenityObject = storage.get("Amenity", amenity_id)
     if amenityObject is None:
         abort(404)
-    for k, v in updatedAmenity.items():
-        if k == "id" or k == "updated_at" or k == "created_at":
-            continue
-        setattr(amenityObject, k, v)
-    amenityObject.save()
-    amenity = amenityObject.to_json()
-    return jsonify(amenity), 200
+    try:
+        updatedAmenity = request.get_json()
+        for k, v in updatedAmenity.items():
+            if k == "id" or k == "updated_at" or k == "created_at":
+                continue
+            setattr(amenityObject, k, v)
+        amenityObject.save()
+        amenity = amenityObject.to_json()
+        return jsonify(amenity), 200
+    except:
+        return "Not a JSON", 400
